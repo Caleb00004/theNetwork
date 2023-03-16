@@ -1,0 +1,50 @@
+/* EACH POST ITEM */
+
+.post {
+    /* background-color: red; */
+    display: grid;
+    grid-template-columns: 8% auto;
+    padding-left: 1em;
+    padding-top: 1.5em;
+    border-bottom: 1px solid rgb(189, 186, 186);
+  }
+  
+  .imgContainer {
+    background-color: gray;
+    height: 2.4em;
+    width: 2.4em;
+    border-radius: 50%;
+    border: 2px solid #06c706;
+  }
+  
+  .postDetails {
+    /* background-color: red; */
+}
+  
+  .postDetails > p {
+    margin-top: 0;
+    /* max-width: 32em; */
+    max-width: 85%;
+  }
+  
+  .postDetails > p > span {
+    color: green;
+    font-style: italic;
+  }
+
+.postDetails hr {
+    margin-right: 10%;
+    /* width: 85%; */
+    border: 1px solid rgb(94, 92, 92);
+    
+}
+
+.icons > svg {
+    margin-right: 1em;
+    margin-bottom: 0.5em;
+    fill: white;
+}
+
+.icons > svg:hover {
+    fill: red;
+}

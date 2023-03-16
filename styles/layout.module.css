@@ -1,0 +1,10 @@
+.layout {
+    /* background-color: red; */
+    /* display: flex;
+    justify-content: space-between;
+    padding-left: 2em;
+    padding-right: 2em; */
+    display: grid;
+    grid-template-columns: 24% auto 25%;
+    margin-top: 5.5em;
+}

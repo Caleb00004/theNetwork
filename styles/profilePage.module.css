@@ -1,0 +1,58 @@
+.profilePage {
+    margin-top: 2em;
+}
+
+.coverImgContainer {
+    height: 8em;
+    background-color: rgb(20, 67, 20);
+    position: relative;
+}
+
+.coverImgContainer > img {
+    background-color: red;
+    position: absolute;
+    margin-top: 5em;
+    margin-left: 1.5em;
+    border-radius: 50%;
+    /* border: 1px solid white; */
+}
+
+.profilePage > h2 {
+    margin-top: 2em;
+    padding-bottom: 0;
+}
+
+.username {
+    font-style: italic;
+    color: rgb(150, 153, 150);
+    margin-top: -1em;
+    padding-bottom: 0.5em;
+}
+
+.postContainer > p {
+    color: rgb(9, 242, 9);
+    padding-left: 2em;
+    padding-bottom: 1em;
+    border-bottom: 1px solid white;
+}
+
+.notLoggedIn {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+}
+
+.notLoggedIn button {
+    padding: 0.5em 1.5em 0.5em 1.5em ;
+    background-color: rgb(13, 110, 13);
+    border-radius: 20px;
+    color: white;
+    border: none;
+    margin-left: 0.5em;
+    transition: 0.3s;
+}
+
+.notLoggedIn button:hover {
+    background-color: rgb(8, 59, 8);
+}

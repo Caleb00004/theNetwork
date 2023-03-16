@@ -1,9 +1,22 @@
-html,
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300&display=swap');
+
+* {
+  box-sizing: border-box;
+  /* outline: 1px solid red; */
+}
+
 body {
+  margin: 0;
+  background-color: rgb(31, 29, 29);
+  color: white;
+  /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
+  font-family: 'Work Sans';
+}
+
+h1 {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
 a {
@@ -11,8 +24,62 @@ a {
   text-decoration: none;
 }
 
-* {
-  box-sizing: border-box;
+.profileComponent, .searchComponent, .home-page {
+  padding-top: 2em;
+}
+
+.home-page {
+  border-left: 1px solid rgb(189, 186, 186);
+  border-right: 1px solid rgb(189, 186, 186);
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  /* padding-left: 1em; */
+}
+
+
+.postItem {
+  /* background-color: red; */
+  display: grid;
+  grid-template-columns: 8% auto;
+  padding-left: 1em;
+  padding-top: 1.5em;
+  border-bottom: 1px solid rgb(189, 186, 186);
+}
+
+.imgContainer {
+  background-color: gray;
+  height: 2.4em;
+  width: 2.4em;
+  border-radius: 50%;
+}
+
+.postDetails {
+  /* background-color: red; */
+}
+
+.postDetails > p {
+  margin-top: 0;
+  max-width: 32em;
+}
+
+.postDetails > p > span {
+  color: green;
+  font-style: italic;
+}
+
+/* Change the white to any color */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-box-shadow: 0 0 0 30px rgb(31,29, 29) inset !important;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-color: white;
+}
+
+.modal {
+  background-color: red;
 }
 
 @media (prefers-color-scheme: dark) {

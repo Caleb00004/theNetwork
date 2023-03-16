@@ -1,0 +1,135 @@
+import { useState } from "react"
+import styles from '../styles/signup.module.css'
+import { useGetSignUpMutation } from "../features/api/apiSlice"
+import { useRouter } from "next/router"
+
+export default function FormComponent() {
+
+    const [email, setEmail] = useState('')
+    const [createPassword, setCreatePassword] = useState('')
+    const [signupRequestStatus, setSignupRequestStatus] = useState('idle')
+    const [name2, setName2] = useState('')
+    const [username, setUserName] = useState('')
+    const [number, setNumber] = useState('')
+    const [bio, setBio] = useState('')
+    const [dateOfBirth, setDateOfBirth] = useState('')
+    const [Imgvalue, setImgValue] = useState('')
+    const [errorDetails, setErrorDetails] = useState({
+        display: false,
+        message: ''
+    })
+
+    const router = useRouter()
+
+    const [signUp] = useGetSignUpMutation()
+    // const FirstGroup = 
+    const [step, setStep] = useState(0)
+
+    function handleSignIn(e) {
+        e.preventDefault()
+
+        const DataToSave = {
+            name: name2,
+            username,
+            bio,
+            number,
+            email,
+            // age: dateOfBirth,
+            // age: 21,
+            dateOfBirth,
+            photo: Imgvalue,
+            password: createPassword
+        }
+
+        if (signupRequestStatus === 'idle') {
+            signUp({...DataToSave}).unwrap()
+            .then(fulfilled => router.push('/profile'))
+            .catch(rejected => {
+                console.log(rejected)
+                if (rejected.status == 'FETCH_ERROR') {
+                    setErrorDetails({display: true, message: `${rejected.error} Please reload page`})
+                } else {
+                    setErrorDetails({display: true, message: `${rejected.data.message} `})
+                }
+
+                setSignupRequestStatus('idle')
+            })
+            
+        }
+
+            // console.log(DataToSave)
+
+
+        console.log('Submit Called')
+    }
+
+    function previewImage(e) {
+        // console.log(e.target.files[0])
+        const selectedFile = e.target.files[0]
+
+        setImgValue(URL.createObjectURL(selectedFile))
+
+        // console.log(URL.createObjectURL(selectedFile))
+    }
+
+    const firstGroup = 
+        <>  
+            <label>Name  </label>
+            <input required className='' type={"text"} value={name2} onChange={(e) => setName2(e.target.value)} placeholder='Enter your name'/>
+
+            <label>Please Enter your UserName: </label>
+            <input required type={"text"} value={username} onChange={(e) => setUserName(e.target.value)} placeholder='kalix8812'/>
+
+            <label>Phone Number : </label>
+            <input required className={styles.number} type={"number"} value={number} onChange={(e) => setNumber(e.target.value)} placeholder='+(234)-1111-111'/>
+
+            <label>Date of Birth</label>
+            <input type={'date'} value={dateOfBirth} onChange={(e) => setDateOfBirth(e.target.value)}/>
+        </>        
+
+    const secondGroup = 
+        <>
+            <label>Email </label>
+            <input required className={styles.email} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='name@gmail.com'/>
+
+            <label>Enter Your Password</label>
+            <input required type={"password"} value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} placeholder='*********'></input>
+
+            <label>Enter a Brief Bio </label> 
+            <textarea required className={styles.textarea} value={bio} onChange={(e) => setBio(e.target.value)} type='text' placeholder="Hello I'm john doe, I like listening to movies and watching music"/>
+
+            <label>Profile Picture (optional) </label>
+            <input type={'file'} name={'file'} accept={'image.png, image.jpeg'} onChange={(e) => previewImage(e)}/>
+
+            <img id="preview-image" className={styles.previewImage} src={Imgvalue} alt="Preview Image"/>
+            {/* <button disabled={!canSignUp} className={styles.submit} style={canSignUp ? {opacity: 1} : {opacity: 0.3}}>Log In</button>
+            {errorDetails.display && <p style={{color: 'red'}}>{errorDetails.message}</p>} */}
+        </>
+
+    const canNext = [name2, username, number, dateOfBirth].every(Boolean)
+    // const canSignUp = true && signupRequestStatus == 'idle'
+
+    const Navigation = () => (
+        <>
+            {
+                step < 1 ?
+                <button disabled={!canNext} className={styles.nextBtn} type='button' onClick={() => setStep(prevstate => prevstate + 1)}>Next {">"} </button>
+                    :
+                <div className={styles.btnContainer}>
+                    <button className={styles.prevBtn} onClick={() => setStep(prevstate => prevstate - 1)}>Back</button>
+                    <button className={styles.submitBtn} type='submit'>Submit</button>
+                </div>
+            }
+        </>
+    )
+    return (
+        <form onSubmit={handleSignIn}>
+            {step == 0 ? firstGroup : secondGroup}
+            <Navigation />
+            {errorDetails.display && <p style={{color: 'red'}}>{errorDetails.message}</p>}
+        </form>
+    )
+    
+}
+
+

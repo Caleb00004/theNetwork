@@ -1,0 +1,35 @@
+.navbar {
+    /* background-color: black; */
+    padding: 0em 1em 0em 1em;
+    border-bottom: 1px solid rgb(169, 165, 165);
+    /* border-bottom: 2px; */
+    display: flex;
+    align-items: center;
+    background-color: rgb(31, 29, 29);
+    /* background-color: black; */
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 9;
+
+}
+
+.navbar > h1 {
+    cursor: pointer;
+}
+
+.navbar > h1 > span {
+    color: #1bca1b;
+}
+
+.navLinks {
+    display: flex;
+    justify-content: space-between;
+    width: 25em;
+    margin-left: auto;
+}
+
+.navLinks > p:hover {
+    color: rgb(27, 202, 27);
+    cursor: pointer;
+}
