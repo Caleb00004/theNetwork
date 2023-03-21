@@ -16,7 +16,7 @@ export const apiSlice = createApi({
     endpoints: builder => ({
         getPosts: builder.query({
             query: () => ({
-                url: '/filter',
+                url: '/all-post',
                 method: 'GET',
                 credentials: 'include'
             }),
@@ -70,17 +70,43 @@ export const apiSlice = createApi({
 
         }),
         addComment: builder.mutation({
-            query: (comment) => {
-                console.log(comment)
-                let post;
-                let nested = post = comment
-                console.log(nested)
+            query: (commentData) => {
+                console.log(commentData)
+                // let post;
+                // let nested = post = comment
+                // console.log(nested)
                 return {
-                    url: '/update',
+                    url: '/add-comment',
                     method: 'PATCH',
                     credentials: 'include',
-                    body: comment
+                    body: commentData
                 }
+            },
+            // providesTags: (result) => {
+            //     console.log(result)
+            // },
+            invalidatesTags: ['getPostData', 'post']
+
+        }),
+        addPost: builder.mutation({
+            query: (post) => {
+                console.log(post)
+                // let post;
+                // let nested = post = comment
+                // console.log(nested)
+                return {
+                    url: '/new-post',
+                    method: 'POST',
+                    credentials: 'include',
+                    body: post
+                }
+            },
+            transformResponse: res => {
+                console.log('POST ADDED')
+                console.log(res)
+                globalState.currentUser = res.userData
+                // return res
+                // console.log(document.cookie)
             },
             // providesTags: (result) => {
             //     console.log(result)
@@ -122,7 +148,8 @@ export const {
     useGetLogInMutation,
     useGetLogOutMutation,
     useGetSignUpMutation,
-    useAddCommentMutation
+    useAddCommentMutation,
+    useAddPostMutation
 
 } = apiSlice
 

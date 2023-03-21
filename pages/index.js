@@ -1,31 +1,27 @@
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import { useSelector, useDispatch } from 'react-redux'
-import { selectComments } from '../store/slices/commentSlice'
-import { fetchPostData } from '../store/slices/commentSlice'
-import makeStore from '../store/store'
-
-import { useGetPostsQuery } from '../features/api/apiSlice'
-import { useGetLoggedInStatusQuery } from '../features/api/apiSlice'
-import { useGetLogInMutation } from '../features/api/apiSlice'
-
+import { useGetPostsQuery, useAddPostMutation } from '../features/api/apiSlice'
 import { globalState } from '../features/api/apiSlice'
-
 import PostExcerpt from '../features/posts/postExcerpt'
 import AllPost from '../features/posts/allPostsList'
 import Modal from 'react-modal'
 import { useState } from 'react'
+import useCheckUserObj from '../custom hooks-functions/checkUserObject'
 
 export default function Home({test, name }) {
-  // console.log(data)
-
   const {data: postData, status: postStatus, error: postError} = useGetPostsQuery()
   const [isOpen, setIsOpen] = useState(false) // To Open and Close the Modal
   const {currentUser} = globalState
 
-  const objectEmpty = Object.keys(currentUser).length === 0
+  // the post mutation from the apiSlice
+  const [makePost] = useAddPostMutation()
+  const [postInput, setPostInput] = useState('')
 
+  // To check if User object is Empty. i.e if User is signed in or not
+  const [objectEmpty] = useCheckUserObj()
+
+  // styles for the Modal Component
   const customStyles = {
     overlay: {
        backgroundColor: 'rgba(0, 0, 0, 0.6)'
@@ -43,57 +39,21 @@ export default function Home({test, name }) {
     }
  }
 
-  const myModal = (
-    <div className='modal'>
-      <h1>This Is the model Conent</h1>
-    </div>
-  )
-  // console.log(postData)  
-  // console.log(postStatus)
-  // console.log(postError)
+  function handleNewPost() {
+    const newPost = {
+      authorName: currentUser.name,
+      authorUserName: currentUser.username,
+      body: postInput
+    }
 
-  // const postList = postData.map((item) => {
-  //   item.posts.map((postItem) => {
-  //     return (
-  //       <div className={styles.post}>
-  //       <div className={styles.imgContainer}> </div>
-  //       <div className={styles.postDetails}>
-  //         <p>Akpan caleb <span>@username</span></p>
-  //         <p>{postItem.snippet}</p>
-  //       </div>
-  //     </div>
-  //     )
-  //     })
-  // })
-
-  // console.log(postList)
-
-
-  // const comments = useSelector(selectComments)
-  // console.log(comments)
-  // console.log(test)
-  // const {status, data} = useGetPostsQuery()
-  // console.log(response)
-
-/*  const [getLogIn] = useGetLogInMutation() */
-
-  // console.log(isLoggedIn)
-  // console.log(status)
-
-/*
-  if (status === 'pending') {
-    return (
-      <h1>Loading</h1>
-    )
-  } else if (status === 'rejected') {
-    return (
-      <h1>Error</h1>
-    )
+    makePost(newPost).unwrap()
+      .then(fulfilled => console.log('Post Made'), setPostInput(''))
+      .catch(rejected => console.log(rejected))
   }
-*/
+
   // Needed to remove one error in the modal component.
   Modal.setAppElement('#__next')
-  console.log(objectEmpty)
+
   return (
     <div className='home-page'>
         <div className={styles.postFormContainer}>
@@ -105,16 +65,14 @@ export default function Home({test, name }) {
           <label>Make A Post? </label>
 
           <div className={styles.postForm}>
-            <input type={'text' }/>
-            {objectEmpty ? <button onClick={() => setIsOpen(true)}>Post</button> : <button onClick={() => console.log('post Made')}>Post</button> }
+            <input type={'text' } value={postInput} onChange={(e) => setPostInput(e.target.value)}/>
+            {objectEmpty ? <button onClick={() => setIsOpen(true)}>Post</button> : <button onClick={() => handleNewPost()}>Post</button> }
           </div>
 
         </div>
         <AllPost data={postData} status={postStatus} error={postError}/>
         {/* <button onClick={() => getLogIn()}>Login</button> */}
 
-        <PostExcerpt />
-        <PostExcerpt />
         <PostExcerpt />
     </div>
   )

@@ -5,25 +5,17 @@ import { globalState } from '../features/api/apiSlice';
 import PostExcerpt from '../features/posts/postExcerpt';
 
 export default function Profile({isLoggedIn, status}) {
-    // console.log(status)
-    // console.log(isLoggedIn)
-
-    console.log(globalState)
-    let loggedIn;
 
     const {currentUser} = globalState
     const router = useRouter()
 
     if (status === 'pending') {
-        // loggedIn = false
-
         return (
             <h1>Loading Data...</h1>
         )
     } else if (status == 'fulfilled') {
-        loggedIn = isLoggedIn
 
-        if (loggedIn.userId == false) {
+        if (isLoggedIn.userId == false) {
             return (
                 <div className={styles.profilePage}>
                     <div className={styles.notLoggedIn}>
@@ -52,9 +44,9 @@ export default function Profile({isLoggedIn, status}) {
         
                     <div className={styles.postContainer}>
                         <p>POSTS</p>
-                        {currentUser.posts.map(item => (
+                        {currentUser.posts ? currentUser.posts.map(item => (
                             <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} name={item.authorName}/>                        
-                        ))}
+                        )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>}
                     </div>
                 </div>
             )
@@ -69,18 +61,3 @@ export default function Profile({isLoggedIn, status}) {
     }
 
 }
-
-{/* <div className='postItem'>
-<div className='imgContainer'> </div>
-<div className='postDetails'>
-    <p>Akpan caleb <span>@username</span></p>
-    <p>This is the post that I am making it is just a directory that talks about life</p>
-</div>
-</div>
-<div className='postItem'>
-<div className='imgContainer'> </div>
-<div className='postDetails'>
-    <p>Akpan caleb <span>@username</span></p>
-    <p>This is the post that I am making it is just a directory that talks about life</p>
-</div>
-</div> */}

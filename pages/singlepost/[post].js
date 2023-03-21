@@ -3,6 +3,7 @@ import { useState } from "react"
 import { globalState } from "../../features/api/apiSlice"
 import { useGetPostsQuery } from "../../features/api/apiSlice"
 import { useAddCommentMutation } from "../../features/api/apiSlice"
+import useCheckUserObj from "../../custom hooks-functions/checkUserObject"
 import PostExcerpt from "../../features/posts/postExcerpt"
 import styles from '../../styles/singlepost.module.css'
 
@@ -21,62 +22,42 @@ export default function singlePost () {
     // console.log(postId)
 
     // console.log(postData)
-    // console.log(currentUser)
-
-    const objectEmpty = Object.keys(currentUser).length === 0
+    const [objectEmpty] = useCheckUserObj()
 
     function addComment() {
         if (objectEmpty) {
             return setErrorDetails(prevState => ({message: 'You Need to be Logged In', display: true}))
         }
         else {
-            let currentPost;
-            // const currentBook = bookData.filter(item => item.id == bookId)
-            const filterPost = postData.map(item => (
-                item.posts.filter((postItem) => {
-                    if (postItem._id == postId) {
-                        currentPost = postItem
-                    }
-                    // console.log(postItem._id)
-                })
-            ))
-            
-            // const test = data.map()
-            const {posts} = currentUser
-            const commentData = {body: comment, authorName: currentUser.name, authorUserName: currentUser.username}
-
-            console.log(posts)
-            // let commentData = {body: 'This is a Comment', authorName: 'Caleb Jack', authorUserName: 'caleb112'}    
-            let newComment = posts.map(postItem => {
-                return postItem._id === postId ? {...postItem, comments: [...postItem.comments, commentData]} : postItem
-            })
-            console.log(newComment)
-
-            let newCommentdata = {posts: newComment}
-            commentDispach(newCommentdata).unwrap()
-                .then(fulfilled => console.log('Comment Posted'))
+            // console.log(commetData)
+            const {name, username} = currentUser
+            commentDispach({comment: comment, postId: postId, authorName: name, authorUserName: username }).unwrap()
+                .then(fulfilled => console.log('Comment Posted'), setComment(''))
                 .catch(rejected => console.log(rejected))
+
         }
     }
 
     if (postData.length <= 0) {
         return (
-            <div>
-                <h1>No Post ha Being Made.</h1>
+            <div className={styles.singlePostPage}>
+                <h2>No post has being made.</h2>
             </div>
         )
     } else if (postData.length > 0 && postId) {
 
         let currentPost;
         // const currentBook = bookData.filter(item => item.id == bookId)
-        const filterPost = postData.map(item => (
-            item.posts.filter((postItem) => {
+        const filterPost = postData.map(postItem => {
+            // item.posts.filter((postItem) => {
                 if (postItem._id == postId) {
                     currentPost = postItem
                 }
                 // console.log(postItem._id)
-            })
-        ))
+            // })
+        })
+
+        // console.log(currentPost)
         
         let isCommentsEmpty;
         if (currentPost.comments.length <= 0) {
@@ -90,7 +71,6 @@ export default function singlePost () {
     
         return (
             <div className={styles.singlePostPage}>
-                <h1>This is the single Post Page</h1>
                 {/* <PostExcerpt body={currentPost.body} username={currentPost.authorUserName} postId={currentPost._id} name={currentPost.authorName}/>             */}
     
                 <div className={styles.singlePost}>
@@ -114,9 +94,11 @@ export default function singlePost () {
                 </div>
                 {errorDetails.display && <p>{errorDetails.message}</p>}
                 <div className={styles.commentList}>
+                    <hr/>
                     {!isCommentsEmpty ? currentPost.comments.map(item => (
                         <div>
-                            <p>Comment: {item.body}</p>
+                            {/* <p>Comment: {item.comment}</p> */}
+                            <PostExcerpt body={item.comment} postId={'#'} username={item.authorUserName} name={item.authorName} displayIcon={false}/>
                         </div>
                     )) : 
                         <p>No Comments Under This Post</p>

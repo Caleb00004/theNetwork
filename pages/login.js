@@ -10,18 +10,15 @@ export default function logIn() {
     const [email, setEmail] = useState('')
     const [getLogIn] = useGetLogInMutation()
     const [loginRequestStatus, setLoginRequestStatus] = useState('idle')
-    const [displayErrorMessage, setDisplayErrorMessage] = useState(false)
-    // const [errorMessage, setErr]
     const [errorDetails, setErrorDetails] = useState({
         display: false,
         message: ''
     })
-    // const [canLogIn, setCanLogIn] = useState(true) // to check if log in button has being Clicked
 
     const router = useRouter()
 
     function handleLogIn(e) {
-        e.preventDefault()
+        e.preventDefault() // To prevent automatic submit from the form
 
         if (loginRequestStatus == 'idle') {
             try {
@@ -67,8 +64,6 @@ export default function logIn() {
             <span><input type={"checkbox"} />Remember me</span>
 
             <p>Don't have an account? <Link href='/signup'>Sign Up</Link></p>
-            {/* <button>Join Us!</button> */}
-           {/* <button onClick={() => getLogIn()}>Log In</button> */}
         </div>
     )
 }

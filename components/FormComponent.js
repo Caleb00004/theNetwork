@@ -22,7 +22,6 @@ export default function FormComponent() {
     const router = useRouter()
 
     const [signUp] = useGetSignUpMutation()
-    // const FirstGroup = 
     const [step, setStep] = useState(0)
 
     function handleSignIn(e) {
@@ -57,19 +56,13 @@ export default function FormComponent() {
             
         }
 
-            // console.log(DataToSave)
-
-
         console.log('Submit Called')
     }
 
     function previewImage(e) {
-        // console.log(e.target.files[0])
         const selectedFile = e.target.files[0]
 
         setImgValue(URL.createObjectURL(selectedFile))
-
-        // console.log(URL.createObjectURL(selectedFile))
     }
 
     const firstGroup = 
@@ -102,17 +95,16 @@ export default function FormComponent() {
             <input type={'file'} name={'file'} accept={'image.png, image.jpeg'} onChange={(e) => previewImage(e)}/>
 
             <img id="preview-image" className={styles.previewImage} src={Imgvalue} alt="Preview Image"/>
-            {/* <button disabled={!canSignUp} className={styles.submit} style={canSignUp ? {opacity: 1} : {opacity: 0.3}}>Log In</button>
-            {errorDetails.display && <p style={{color: 'red'}}>{errorDetails.message}</p>} */}
         </>
 
+    // check if 'seconfGroup' can be displayed
     const canNext = [name2, username, number, dateOfBirth].every(Boolean)
-    // const canSignUp = true && signupRequestStatus == 'idle'
 
+    // Navigate Back and Forth btw the 2 form groups
     const Navigation = () => (
         <>
             {
-                step < 1 ?
+                step == 0 ?
                 <button disabled={!canNext} className={styles.nextBtn} type='button' onClick={() => setStep(prevstate => prevstate + 1)}>Next {">"} </button>
                     :
                 <div className={styles.btnContainer}>

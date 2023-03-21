@@ -9,7 +9,7 @@
 }
 
 .coverImgContainer > img {
-    background-color: red;
+    /* background-color: white; */
     position: absolute;
     margin-top: 5em;
     margin-left: 1.5em;
@@ -55,4 +55,18 @@
 
 .notLoggedIn button:hover {
     background-color: rgb(8, 59, 8);
+}
+
+@media screen and (max-width: 780px) {
+    .profilePage {
+        margin-top: unset;
+    }
+
+    .profilePage > p {
+        padding-left: 1em;
+    }
+    .profilePage > h2 {
+        padding-left: 1em;
+        padding-bottom: 0.5em;
+    }
 }

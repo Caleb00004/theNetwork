@@ -78,8 +78,40 @@ input:-webkit-autofill:active{
     -webkit-text-stroke-color: white;
 }
 
+
 .modal {
   background-color: red;
+}
+
+@media screen and (max-width: 980px) {
+  .searchComponent {
+    display: none;
+  }
+
+  .home-page, .signup-page {
+    margin-right: 1em;
+  }
+}
+
+@media screen and (max-width: 780px) {
+
+  .profileComponent {
+    display: none;
+  }
+
+  .home-page, .signup-page {
+    margin-right: 0em;
+  }
+
+  #open {
+    /* background-color: red; */
+    display: flex;
+  }
+  
+  #close {
+    display: none;
+  }
+  
 }
 
 @media (prefers-color-scheme: dark) {

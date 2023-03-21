@@ -10,12 +10,10 @@ import { useGetLoggedInStatusQuery } from "../features/api/apiSlice"
 export default function Layout({children}) {
 
     const {data: isLoggedIn, status, error} = useGetLoggedInStatusQuery()
-    console.log(isLoggedIn)
-    console.log(error)
-    // console.log(status)
-    // console.log(data)
-    // console.log(`this ${status}: ${data}`)
+    // console.log(isLoggedIn)
+    // console.log(error)
 
+    // This is to pass some props to all chlidren components/pages
     const renderChildren = () => {
         return React.Children.map(children, (child) => {
             return React.cloneElement(child, {

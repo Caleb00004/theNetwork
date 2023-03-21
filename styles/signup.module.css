@@ -81,3 +81,10 @@
     height: min-content;
     margin-top: 1.5em;
 }
+
+@media screen and (max-width: 780px) {
+    .signupPage {
+        padding-left: 0.5em;
+        padding-right: 0.5em;
+    }
+}
