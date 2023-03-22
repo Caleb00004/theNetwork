@@ -100,14 +100,19 @@ input:-webkit-autofill:active{
   }
 
   .home-page, .signup-page {
+    border-left: unset;
     margin-right: 0em;
+    padding-bottom: 4em;
   }
 
   #open {
     /* background-color: red; */
     display: flex;
   }
-  
+  .profileComponent, .searchComponent, .home-page {
+    padding-top: unset;
+  }
+    
   #close {
     display: none;
   }

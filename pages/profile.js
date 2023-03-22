@@ -19,7 +19,7 @@ export default function Profile({isLoggedIn, status}) {
             return (
                 <div className={styles.profilePage}>
                     <div className={styles.notLoggedIn}>
-                        <h3>You Need To be Logged In to View This Page</h3>
+                        <h3 style={{textAlign: 'center'}}>You Need To be Logged In to View This Page</h3>
                         <p>Log In <button onClick={() => router.push('/login')}>Here</button> </p>
 
                         <p>Dont have an Account ? </p>

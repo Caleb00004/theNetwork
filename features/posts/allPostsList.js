@@ -10,9 +10,9 @@ export default function AllPost({data, status, error}) {
     } else if(status == 'fulfilled') {
         return (
             data.map((postItem) => (
-                <>
+                <div key={postItem._id}>
                     <PostExcerpt body={postItem.body} username={postItem.authorUserName} name={postItem.authorName} postId={postItem._id}/>                    
-                </>
+                </div>
             ))
         )
     } else {

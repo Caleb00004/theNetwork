@@ -7,6 +7,7 @@ import PostExcerpt from '../features/posts/postExcerpt'
 import AllPost from '../features/posts/allPostsList'
 import Modal from 'react-modal'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 import useCheckUserObj from '../custom hooks-functions/checkUserObject'
 
 export default function Home({test, name }) {
@@ -47,7 +48,20 @@ export default function Home({test, name }) {
     }
 
     makePost(newPost).unwrap()
-      .then(fulfilled => console.log('Post Made'), setPostInput(''))
+      .then(fulfilled => {
+        toast.success('post successful', {
+          position: "top-right",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "dark",
+        });
+        console.log('Post Made')
+        setPostInput('')
+      })
       .catch(rejected => console.log(rejected))
   }
 

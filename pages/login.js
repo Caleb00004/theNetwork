@@ -3,7 +3,8 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { useGetLogInMutation } from "../features/api/apiSlice"
 import styles from '../styles/loginPage.module.css'
-
+import {toast} from "react-toastify"
+import 'react-toastify/dist/ReactToastify.css'
 export default function logIn() {
 
     const [password, setPassword] = useState('')
@@ -28,7 +29,19 @@ export default function logIn() {
                 setErrorDetails(prevState => ({...prevState, display: false}))
 
                 getLogIn({email: email, password: password}).unwrap()
-                    .then(fulfilled => router.push('/'))
+                    .then(fulfilled => {
+                        toast.success('login succesful', {
+                            position: "top-right",
+                            autoClose: 3000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true,
+                            progress: undefined,
+                            theme: "dark",
+                        });
+                        router.push('/')
+                    })
                     .catch(rejected => {
                         console.log(rejected)
                         if (rejected.status == 'FETCH_ERROR') {
@@ -54,6 +67,7 @@ export default function logIn() {
     return (
         <div className={styles.loginPage}>
             <h1>Login</h1>
+            {/* <div className='w-fit h-fit'> */}
             
             <form onSubmit={handleLogIn}>
                 <input required className={styles.email} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='name@gmail.com'/>

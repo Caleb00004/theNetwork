@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import styles from '../styles/signup.module.css'
 import { useGetSignUpMutation } from "../features/api/apiSlice"
 import { useRouter } from "next/router"
@@ -14,6 +14,7 @@ export default function FormComponent() {
     const [bio, setBio] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [Imgvalue, setImgValue] = useState('')
+    const eMessageRef = useRef(null)
     const [errorDetails, setErrorDetails] = useState({
         display: false,
         message: ''
@@ -23,6 +24,11 @@ export default function FormComponent() {
 
     const [signUp] = useGetSignUpMutation()
     const [step, setStep] = useState(0)
+
+    const handleShowParagraph = () => {
+        // setIsParagraphShown(true);
+        // eMessageRef.current.scrollIntoView({ behavior: "smooth" });
+    };
 
     function handleSignIn(e) {
         e.preventDefault()
@@ -42,7 +48,19 @@ export default function FormComponent() {
 
         if (signupRequestStatus === 'idle') {
             signUp({...DataToSave}).unwrap()
-            .then(fulfilled => router.push('/profile'))
+            .then(fulfilled => {
+                toast.success('signUp succesful', {
+                    position: "top-right",
+                    autoClose: 3000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "dark",
+                });
+                router.push('/profile')
+            })
             .catch(rejected => {
                 console.log(rejected)
                 if (rejected.status == 'FETCH_ERROR') {
@@ -109,7 +127,7 @@ export default function FormComponent() {
                     :
                 <div className={styles.btnContainer}>
                     <button className={styles.prevBtn} onClick={() => setStep(prevstate => prevstate - 1)}>Back</button>
-                    <button className={styles.submitBtn} type='submit'>Submit</button>
+                    <button className={styles.submitBtn} onClick={handleShowParagraph} type='submit'>Submit</button>
                 </div>
             }
         </>
@@ -118,7 +136,7 @@ export default function FormComponent() {
         <form onSubmit={handleSignIn}>
             {step == 0 ? firstGroup : secondGroup}
             <Navigation />
-            {errorDetails.display && <p style={{color: 'red'}}>{errorDetails.message}</p>}
+            {errorDetails.display && <p ref={eMessageRef} style={{color: 'red'}}>{errorDetails.message}</p>}
         </form>
     )
     

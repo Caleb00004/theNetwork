@@ -1,7 +1,7 @@
 import styles from './postExcerpt.module.css'
 import { useRouter } from 'next/router'
 
-export default function PostExcerpt({body, postId, username, name, displayIcon = true }) {
+export default function PostExcerpt({body, postId, username, name, type = 'post',displayIcon = true }) {
 
     const router = useRouter()
 
@@ -10,7 +10,7 @@ export default function PostExcerpt({body, postId, username, name, displayIcon =
             <div className={styles.imgContainer}> </div>
                 <div className={styles.postDetails}>
                 <p>{name} <span>@{username}</span></p>
-                <p onClick={() => router.push(`/singlepost/${postId}`)}>{body}</p>
+                {type == 'comment' ? <p>{body}</p> : <p onClick={() => router.push(`/singlepost/${postId}`)}>{body}</p> }
                 {displayIcon && 
                 <>
                     <hr />

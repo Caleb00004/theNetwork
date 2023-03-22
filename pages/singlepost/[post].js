@@ -57,8 +57,14 @@ export default function singlePost () {
             // })
         })
 
-        // console.log(currentPost)
+        console.log(currentPost)
         
+        if (!currentPost) {
+            return (
+                <h1>Post Dosen't exist</h1>
+            )
+        }
+
         let isCommentsEmpty;
         if (currentPost.comments.length <= 0) {
             isCommentsEmpty = true        
@@ -95,10 +101,10 @@ export default function singlePost () {
                 {errorDetails.display && <p>{errorDetails.message}</p>}
                 <div className={styles.commentList}>
                     <hr/>
-                    {!isCommentsEmpty ? currentPost.comments.map(item => (
-                        <div>
+                    {!isCommentsEmpty ? currentPost.comments.map((item, i) => (
+                        <div key={i}>
                             {/* <p>Comment: {item.comment}</p> */}
-                            <PostExcerpt body={item.comment} postId={'#'} username={item.authorUserName} name={item.authorName} displayIcon={false}/>
+                            <PostExcerpt body={item.comment} type={'comment'} username={item.authorUserName} name={item.authorName} displayIcon={false}/>
                         </div>
                     )) : 
                         <p>No Comments Under This Post</p>

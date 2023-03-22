@@ -5,6 +5,11 @@
     /* text-align: center; */
 }
 
+.signupPage > p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .signupPage form {
     display: flex;
     flex-direction: column;

@@ -60,6 +60,7 @@
 @media screen and (max-width: 780px) {
     .profilePage {
         margin-top: unset;
+        padding-bottom: 3.5em;
     }
 
     .profilePage > p {

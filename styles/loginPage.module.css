@@ -78,3 +78,9 @@
 .loginPage > span {
     padding-top: 1em;
 }
+
+@media screen and (max-width: 780px) {
+    .loginPage {
+        padding-bottom: 5em;
+    }
+}
