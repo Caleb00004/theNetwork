@@ -29,11 +29,22 @@
     padding-bottom: 0.5em;
 }
 
-.postContainer > p {
-    color: rgb(9, 242, 9);
-    padding-left: 2em;
-    padding-bottom: 1em;
+.postContainer > .span {
     border-bottom: 1px solid white;
+    display: flex;
+    justify-content: space-around;
+    /* background-color: red; */
+}
+
+.postContainer > .span > p {
+    color: rgb(9, 242, 9);
+    margin-left: 2em;
+    padding-bottom: 0.5em;
+    margin-bottom: 0.1em;
+    /* text-decoration: underline; */
+    /* border-bottom: 3px solid rgb(9, 242, 9) */
+    margin-right: 1em;
+    cursor: pointer;
 }
 
 .notLoggedIn {
@@ -69,5 +80,9 @@
     .profilePage > h2 {
         padding-left: 1em;
         padding-bottom: 0.5em;
+    }
+    .postContainer > .span {
+        justify-content: space-between;
+        /* background-color: red; */
     }
 }

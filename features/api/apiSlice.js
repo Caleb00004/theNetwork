@@ -1,5 +1,6 @@
 import {fetchBaseQuery, createApi} from '@reduxjs/toolkit/query/react'
 
+
 export const globalState = {
     userData: {},
     postData: [],
@@ -41,6 +42,49 @@ export const apiSlice = createApi({
             },
             providesTags: ['post']
         }),
+        getAllUsers: builder.query({
+            query: () => ({
+                url: '/all-users',
+                method: 'GET',
+                credentials: 'include',
+            }),
+            transformResponse: res => {
+                console.log(res)
+                return res
+            },
+        }),
+        getUserAccount: builder.mutation({
+            query: (username) => ({
+                url: '/find-account',
+                method: 'POST', 
+                credentials: 'include',
+                body: {username: username}
+            }),
+            transformResponse: res => {
+                // console.log('GETTING ACCOUNT')
+                // console.log(res)
+                // globalState.currentUser = res.userData
+                return res
+                // console.log(res)
+                // globalState.loggedIn = res
+            }
+        }),
+        postlikeUnlike: builder.mutation({
+            query: (data) => ({
+                url: '/like-unlike',
+                method: 'PATCH',
+                credentials: 'include',
+                body: data
+            }),
+            transformResponse: res => {
+                console.log('TESTING ENDPOINT')
+                console.log(res)
+                // console.log(res)
+                globalState.currentUser = res.userData
+                // globalState.loggedIn = res
+            }
+            // invalidatesTags: ['post']
+        }),
         getLogOut: builder.mutation({
             query: () => ({
                 url: '/logout',
@@ -50,7 +94,7 @@ export const apiSlice = createApi({
             providesTags: (result) => {
                 console.log(result)
             },
-            invalidatesTags: ['post']
+            invalidatesTags: ['post', 'getPostData']
 
         }),
         getSignUp: builder.mutation({
@@ -148,8 +192,11 @@ export const {
     useGetLogInMutation,
     useGetLogOutMutation,
     useGetSignUpMutation,
+    useGetAllUsersQuery,
     useAddCommentMutation,
-    useAddPostMutation
+    useAddPostMutation,
+    usePostlikeUnlikeMutation,
+    useGetUserAccountMutation
 
 } = apiSlice
 

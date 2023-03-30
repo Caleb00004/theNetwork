@@ -1,17 +1,48 @@
+import { useState } from 'react'
 import styles from './searchcomponent.module.css'
+// import { useGetAllUsersQuery } from '../features/api/apiSlice'
+import { useRouter } from 'next/router'
 
-export default function SearchComponent() {
-    return (
-        <div className="searchComponent">
-            <div className={styles.searchComponent}>
-                {/* This is the search component */}
-                <input type={"text"} placeholder='Search for a User...'/> 
-                <div className={styles.searchUserList}>
-                    <p>Caleb kaip @username</p>
-                    <p>David AKpan</p>
+export default function SearchComponent({data, status}) {
+    // const {data, status} = useGetAllUsersQuery()
+    const [input, setInput] = useState()
+    const [filteredList, setFilteredList] = useState([])
+    const router = useRouter()
+
+    function handleFilter(event) {
+        setInput(event)
+
+        let filtered = data.filter(dataItem => (
+            dataItem.includes(event.toLowerCase())
+        ))
+        
+        if (event) {
+            setFilteredList(filtered)
+        } else { // if input box is empty, set itemList back to normal.
+            setFilteredList([])
+        }
+    }  
+    console.log('SEARCH COMPONENTTT')
+
+    if (status == 'fulfilled' && data.length !== 0) {
+        return (
+            <div className="searchComponent">
+                <div className={styles.searchComponent}>
+                    {/* This is the search component */}
+                    <input type={"text"} value={input} onChange={(e) => handleFilter(e.target.value)} placeholder='Search for a User...'/> 
+                    <div className={styles.searchUserList}>
+                        <p>@user1234</p>
+                        {filteredList.map(item => <p style={{cursor: 'pointer'}} onClick={() => (setInput(''), router.push(`/userProfile/?username=${item}`))}>@{item}</p>)}
+                    </div>
                 </div>
+    
             </div>
-
+        )
+    }
+    
+    return (
+        <div className='searchComponent'>
+            <h3>Loading...</h3>
         </div>
     )
 }

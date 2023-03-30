@@ -1,7 +1,8 @@
 import PostExcerpt from './postExcerpt'
-
-export default function AllPost({data, status, error}) {
-
+import { globalState } from '../api/apiSlice'
+export default function AllPost({data, status, error, isLiked, setIsLiked}) {
+    console.log('ALL POST LISTS')
+    const {currentUser} = globalState
     // console.log(data)
     if (status == 'pending') {
         return (
@@ -11,7 +12,12 @@ export default function AllPost({data, status, error}) {
         return (
             data.map((postItem) => (
                 <div key={postItem._id}>
-                    <PostExcerpt body={postItem.body} username={postItem.authorUserName} name={postItem.authorName} postId={postItem._id}/>                    
+                    <PostExcerpt 
+                        body={postItem.body}
+                        username={postItem.authorUserName}
+                        name={postItem.authorName}
+                        postId={postItem._id}
+                        userLiked={currentUser.likedPost}/>
                 </div>
             ))
         )

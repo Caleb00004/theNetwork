@@ -5,7 +5,7 @@ import Layout from '../components/Layout'
 import { ToastContainer } from "react-toastify"
 
 function MyApp({ Component, ...pageProps }) {
-
+  console.log('APP COMPONENT')
   return (
     <ApiProvider api={apiSlice}>
         <ToastContainer />

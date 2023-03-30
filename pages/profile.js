@@ -3,11 +3,15 @@ import Image from 'next/image'
 import { useRouter } from 'next/router';
 import { globalState } from '../features/api/apiSlice';
 import PostExcerpt from '../features/posts/postExcerpt';
+import LikedPostSection from '../components/profile_components/LikedPostSection';
+import PostSection from '../components/profile_components/PostSection';
+import { useState } from 'react';
 
 export default function Profile({isLoggedIn, status}) {
 
     const {currentUser} = globalState
     const router = useRouter()
+    const [display, setDisplay] = useState('post')
 
     if (status === 'pending') {
         return (
@@ -28,6 +32,19 @@ export default function Profile({isLoggedIn, status}) {
                 </div>
             )
         } else {
+
+
+            const normalPost = currentUser.posts ? currentUser.posts.map(item => (
+                <PostSection body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName} />
+                // <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName}/>
+            )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>
+
+            const likedPost = currentUser.likedPost ? currentUser.likedPost.map(item => (
+                <LikedPostSection body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name} />
+                // <PostExcerpt body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name}/>
+            )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>
+            
+            // const likedPost = <h1>YES</h1>
             return (
                 <div className={styles.profilePage}>
                     {/* <h3>This the Profile Page ?</h3> */}
@@ -43,10 +60,19 @@ export default function Profile({isLoggedIn, status}) {
                     <p className='ppo'>Link:</p>
         
                     <div className={styles.postContainer}>
-                        <p>POSTS</p>
-                        {currentUser.posts ? currentUser.posts.map(item => (
-                            <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} name={item.authorName}/>                        
-                        )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>}
+                        <div className={styles.span}>
+                            <p onClick={() => setDisplay('post')} style={display == 'post' ? {borderBottom: '3px solid rgb(9, 242, 9)'} : {}}>POSTS</p>
+                            <p  onClick={() => setDisplay('likedPost')} style={display == 'likedPost' ? {borderBottom: '3px solid rgb(9, 242, 9)'} : {}} >Liked Posts</p>
+                        </div>
+                        {/* {currentUser.posts ? currentUser.posts.map(item => (
+                            <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName}/>                        
+                        )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>} */}
+
+                        {
+                            display == 'post' ? normalPost : likedPost
+                        }
+                        {/* {likedPost}
+                        {normalPost} */}
                     </div>
                 </div>
             )

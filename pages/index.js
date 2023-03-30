@@ -10,7 +10,8 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import useCheckUserObj from '../custom hooks-functions/checkUserObject'
 
-export default function Home({test, name }) {
+export default function Home() {
+  console.log('INDEX/HOME PAGE')
   const {data: postData, status: postStatus, error: postError} = useGetPostsQuery()
   const [isOpen, setIsOpen] = useState(false) // To Open and Close the Modal
   const {currentUser} = globalState
@@ -87,7 +88,7 @@ export default function Home({test, name }) {
         <AllPost data={postData} status={postStatus} error={postError}/>
         {/* <button onClick={() => getLogIn()}>Login</button> */}
 
-        <PostExcerpt />
+        {/* <PostExcerpt /> */}
     </div>
   )
 }

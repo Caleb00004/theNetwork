@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { globalState } from "../../features/api/apiSlice"
 import { useGetPostsQuery } from "../../features/api/apiSlice"
 import { useAddCommentMutation } from "../../features/api/apiSlice"
@@ -14,13 +14,16 @@ export default function singlePost () {
     const {postData, currentUser} = globalState    
     const router = useRouter()
     const postId = router.query.post
+    const commentInputRef = useRef()
+        
+
     const [commentDispach] = useAddCommentMutation()
     const [errorDetails, setErrorDetails] = useState({
         display: false,
         message: ''
     })
     // console.log(postId)
-
+    console.log(router)
     // console.log(postData)
     const [objectEmpty] = useCheckUserObj()
 
@@ -37,15 +40,15 @@ export default function singlePost () {
 
         }
     }
-
-    if (postData.length <= 0) {
+    // console.log(postData)
+    if (status == "fulfilled" && postData.length <= 0 ) {
         return (
             <div className={styles.singlePostPage}>
                 <h2>No post has being made.</h2>
             </div>
         )
     } else if (postData.length > 0 && postId) {
-
+//        console.log(postId)
         let currentPost;
         // const currentBook = bookData.filter(item => item.id == bookId)
         const filterPost = postData.map(postItem => {
@@ -77,9 +80,9 @@ export default function singlePost () {
     
         return (
             <div className={styles.singlePostPage}>
-                {/* <PostExcerpt body={currentPost.body} username={currentPost.authorUserName} postId={currentPost._id} name={currentPost.authorName}/>             */}
+                <PostExcerpt singlePost={true} createdAt={currentPost.createdAt} body={currentPost.body} username={currentPost.authorUserName} userLiked={currentUser.likedPost} postId={currentPost._id} name={currentPost.authorName}/>
     
-                <div className={styles.singlePost}>
+                {/* <div className={styles.singlePost}>
                     <div className={styles.imgContainer}> </div>
                         <div className={styles.postDetails}>
                         <p style={{fontSize: '1.3em'}}>{currentPost.authorName} <span>@{currentPost.authorUserName}</span></p>
@@ -92,7 +95,7 @@ export default function singlePost () {
                         </div>
 
                     </div>
-                </div>
+                </div> */}
 
                 <div className={styles.addComments}>
                     <input className={styles} type={'text'} value={comment} onChange={(e) => setComment(e.target.value)} placeholder='Add a comment'/>
@@ -114,7 +117,7 @@ export default function singlePost () {
         )
     } else {
         return (
-            <h1 style={{color: 'red'}}>CHECKING !!!</h1>
+            <h1 style={{color: 'red'}}>Loading !!!</h1>
         )
     }
 

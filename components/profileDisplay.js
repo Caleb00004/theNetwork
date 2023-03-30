@@ -1,9 +1,10 @@
 import styles from './profilecomponent.module.css'
+import { globalState } from '../features/api/apiSlice';
 import Image from 'next/image'
 
 
 export default function ProfileDisplay({isLoggedIn, status}) {
-    
+    console.log('Profile Display')
     let loggedIn;
     // console.log(isLoggedIn)
     // console.log(status)
@@ -56,6 +57,7 @@ export default function ProfileDisplay({isLoggedIn, status}) {
             )
 
         } else {
+            const {currentUser} = globalState
             return (
                 <div className="profileComponent">
                     <div className={styles.ProfileDisplay}>
@@ -63,12 +65,11 @@ export default function ProfileDisplay({isLoggedIn, status}) {
                             <Image src='/avatar.png' width={100} height={50}  alt='profile img'/>
                         </div>
                         <div className={styles.texts}>
-                            <h3>Caleb Akpan</h3>
-                            <p><span>Bio</span> : I am caleb a tottenham and psg Fan. I love playing video Games and dancing
-                                to Michael Jackson Music.
+                            <h3>{currentUser.name}</h3>
+                            <p><span>Bio</span> : {currentUser.bio}
                             </p>
                             <hr />
-                            <p>Number of Post: <span>23</span></p>
+                            <p>Number of Post: <span>{currentUser.posts ? currentUser.posts.length : 0}</span></p>
                             <p>Impressions on your post: <span>23</span> </p>
                             <hr />
                             <p>Checkout my other projects <a href='#'>Here</a> </p>

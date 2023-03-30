@@ -2,14 +2,17 @@
     display: flex;
     flex-direction: column;
     position: fixed;
-    width: 25%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1.5em;
+    padding-right: 1.5em;
 }
 
 .searchComponent > input {
-    width: 90%;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 0.7em 1.5em 0.7em 1em;
+    margin-top: 2em;
+    width: 100%;
+    padding: 1em 1.5em 1em 1em;
     border-radius: 1em;
     border: none;
     background-color: rgb(9, 71, 9);
@@ -17,7 +20,7 @@
 }
 
 .searchComponent > input::placeholder {
-    color: white
+    color: rgb(156, 153, 153)
 }
 
 .searchUserList {
@@ -26,6 +29,7 @@
     margin-right: 1.3em;
     margin-top: 1em;
     border-radius: 1em;
+    width: 100%;
 }
 
 .searchUserList > p {
@@ -34,5 +38,5 @@
     padding-bottom: 0.5em;
     border-bottom: 1px solid rgb(85, 84, 84);
     font-size: 0.8em;
-}
 
+}

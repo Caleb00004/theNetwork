@@ -79,7 +79,7 @@ export default function FormComponent() {
 
     function previewImage(e) {
         const selectedFile = e.target.files[0]
-
+        console.log(URL.createObjectURL(selectedFile))
         setImgValue(URL.createObjectURL(selectedFile))
     }
 
