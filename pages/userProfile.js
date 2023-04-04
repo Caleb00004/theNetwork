@@ -5,7 +5,7 @@ import styles from '../styles/profilePage.module.css'
 import Image from "next/image"
 import PostExcerpt from "../features/posts/postExcerpt"
 
-export default function userProfile() {
+export default function UserProfile() {
     console.log('Re-Rendered')
     const router = useRouter()
     const [status, setStatus] = useState('loading')

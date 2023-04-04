@@ -8,7 +8,7 @@ import PostExcerpt from "../../features/posts/postExcerpt"
 import Loading from "../../components/loading"
 import styles from '../../styles/singlepost.module.css'
 
-export default function singlePost () {
+export default function SinglePost () {
 
     const {data, status} = useGetPostsQuery()
     const [comment, setComment] = useState('')

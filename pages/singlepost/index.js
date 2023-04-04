@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 
-export default function singlePost() {
+export default function SinglePost() {
 
     useEffect(() => {
         router.push('/')

@@ -7,7 +7,7 @@ import {toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from "../components/loading"
 
-export default function logIn() {
+export default function LogIn() {
 
     const [displayLoading, setDisplayLoading] = useState(false)
     const [password, setPassword] = useState('')

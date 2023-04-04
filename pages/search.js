@@ -3,7 +3,7 @@ import styles from "../styles/searchpage.module.css"
 import { useRouter } from "next/router"
 import { useState } from "react"
 
-export default function searchPage({userData, userDataStatus}) {
+export default function SearchPage({userData, userDataStatus}) {
 
     const [input, setInput] = useState('')
     const [filteredList, setFilteredList] = useState([])

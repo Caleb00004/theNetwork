@@ -33,7 +33,7 @@ export default function SearchComponent({data, status}) {
                     <input type={"text"} value={input} onChange={(e) => handleFilter(e.target.value)} placeholder='Search for a User...'/> 
                     <div className={styles.searchUserList}>
                         <p>@user1234</p>
-                        {filteredList.map(item => <p style={{cursor: 'pointer'}} onClick={() => (setInput(''), router.push(`/userProfile/?username=${item}`))}>@{item}</p>)}
+                        {filteredList.map((item, i) => <p key={i} style={{cursor: 'pointer'}} onClick={() => (setInput(''), router.push(`/userProfile/?username=${item}`))}>@{item}</p>)}
                     </div>
                 </div>
     
