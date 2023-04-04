@@ -86,7 +86,7 @@ export default function LogIn() {
             </form>
             <span><input type={"checkbox"} />Remember me</span>
 
-            <p>Don't have an account? <Link href='/signup'>Sign Up</Link></p>
+            <p>Don &apos t have an account? <Link href='/signup'>Sign Up</Link></p>
         </div>
     )
 }

@@ -78,7 +78,7 @@ export default function SinglePost () {
         
         if (!currentPost) {
             return (
-                <h1>Post Dosen't exist</h1>
+                <h1>Post Dosent exist</h1>
             )
         }
 

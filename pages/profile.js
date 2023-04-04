@@ -36,12 +36,12 @@ export default function Profile({isLoggedIn, status}) {
 
             console.log(currentUser.likedPost)
             const normalPost = currentUser.posts ? currentUser.posts.map(item => (
-                <PostSection body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName} authorImage={item.authorPhoto} />
+                <PostSection key={item._id} body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName} authorImage={item.authorPhoto} />
                 // <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName}/>
             )) : <p style={{color: 'white', textAlign: 'center'}}>You Currently Have No Posts</p>
 
             const likedPost = currentUser.likedPost ? currentUser.likedPost.map(item => (
-                <LikedPostSection body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name} authorImage={item.authorPhoto} />
+                <LikedPostSection key={item.postId} body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name} authorImage={item.authorPhoto} />
                 // <PostExcerpt body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name}/>
             )) : <p style={{color: 'white', textAlign: 'center'}}>You Currently Have No Posts</p>
             
