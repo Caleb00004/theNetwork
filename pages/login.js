@@ -5,8 +5,11 @@ import { useGetLogInMutation } from "../features/api/apiSlice"
 import styles from '../styles/loginPage.module.css'
 import {toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
+import Loading from "../components/loading"
+
 export default function logIn() {
 
+    const [displayLoading, setDisplayLoading] = useState(false)
     const [password, setPassword] = useState('')
     const [email, setEmail] = useState('')
     const [getLogIn] = useGetLogInMutation()
@@ -22,6 +25,7 @@ export default function logIn() {
         e.preventDefault() // To prevent automatic submit from the form
 
         if (loginRequestStatus == 'idle') {
+            setDisplayLoading(true)
             try {
                 setLoginRequestStatus('pending')
                 // setDisplayErrorMessage(false)
@@ -30,6 +34,7 @@ export default function logIn() {
 
                 getLogIn({email: email, password: password}).unwrap()
                     .then(fulfilled => {
+                        setDisplayLoading(false)
                         toast.success('login succesful', {
                             position: "top-right",
                             autoClose: 3000,
@@ -40,7 +45,7 @@ export default function logIn() {
                             progress: undefined,
                             theme: "dark",
                         });
-                        router.push('/')
+                        return router.push('/')
                     })
                     .catch(rejected => {
                         console.log(rejected)
@@ -51,6 +56,7 @@ export default function logIn() {
                         }
 
                         setLoginRequestStatus('idle')
+                        setDisplayLoading(false)
                     })
                     // setCanLogIn(true)
             } catch (err) {
@@ -66,6 +72,9 @@ export default function logIn() {
 
     return (
         <div className={styles.loginPage}>
+             <div style={{height: '3em', width: '3em', position: 'absolute', top:'0' , right: '0', marginRight: '3em'}}>
+                {displayLoading && <Loading style={{scale: '0.6'}}/>}
+            </div>
             <h1>Login</h1>
             {/* <div className='w-fit h-fit'> */}
             

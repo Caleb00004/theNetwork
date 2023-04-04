@@ -5,9 +5,10 @@ import { globalState } from '../api/apiSlice'
 import { usePostlikeUnlikeMutation } from '../api/apiSlice'
 import Modal from 'react-modal'
 import useCheckUserObj from '../../custom hooks-functions/checkUserObject'
+import Image from 'next/image'
 import Link from 'next/link'
 
-export default function PostExcerpt({body, postId, username, userLiked , name, createdAt , singlePost = false ,type = 'post',displayIcon = true }) {
+export default function PostExcerpt({body, authorImage, postId, username, userLiked , name, createdAt , singlePost = false ,type = 'post',displayIcon = true }) {
     const [isLiked, setIsLiked] = useState(false)
     const [likeUnlike] = usePostlikeUnlikeMutation()
     const [isOpen, setIsOpen] = useState(false)
@@ -72,14 +73,14 @@ export default function PostExcerpt({body, postId, username, userLiked , name, c
         let type = isLiked ? 'unlike' : 'like'
 
         setIsLiked(prevState => !prevState)
-        likeUnlike({type, name, username, body, postId}).unwrap()
+        likeUnlike({type, name, username, body, postId, authorImage}).unwrap()
             .then(fulfilled => console.log('yo shit gotten'))
             .catch(err => console.log(err))
     }
-
+    // console.log(authorImage)
     return (
         <div className={singlePost ? styles.single_post : styles.post}>
-            <div style={singlePost ? singleImageContainer : {}} className={styles.imgContainer}> </div>
+            <div style={singlePost ? singleImageContainer : {}} className={styles.imgContainer}><Image src={authorImage ? authorImage : '/avatar.png'} alt='profile picture' width={'50'} height={'50'} /> </div>
 
                 <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={customStyles}>
                     <h3>You need to be logged in to Perform this action</h3>

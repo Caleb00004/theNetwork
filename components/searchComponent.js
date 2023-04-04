@@ -2,6 +2,7 @@ import { useState } from 'react'
 import styles from './searchcomponent.module.css'
 // import { useGetAllUsersQuery } from '../features/api/apiSlice'
 import { useRouter } from 'next/router'
+import Loading from './loading'
 
 export default function SearchComponent({data, status}) {
     // const {data, status} = useGetAllUsersQuery()
@@ -41,8 +42,9 @@ export default function SearchComponent({data, status}) {
     }
     
     return (
-        <div className='searchComponent'>
-            <h3>Loading...</h3>
+        <div style={{display: 'flex'}} className='searchComponent'>
+            {/* <h3>Loading...</h3> */}
+            <Loading style={{scale: 1.0}}/>
         </div>
     )
 }

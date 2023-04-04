@@ -22,8 +22,9 @@ export const apiSlice = createApi({
                 credentials: 'include'
             }),
             transformResponse: res => {
-                globalState.postData = res
-                return res
+                let inverseArray = res.reverse()
+                globalState.postData = inverseArray
+                return inverseArray
             },
             providesTags: ['getPostData']
         }),
@@ -181,7 +182,6 @@ export const apiSlice = createApi({
             },
             invalidatesTags: ['post']
         })
-
 
     })
 })

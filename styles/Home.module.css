@@ -38,6 +38,11 @@
   background-color: rgb(7, 82, 7);
 }
 
+.postForm > button:disabled {
+  background-color: rgb(7, 82, 7);
+  opacity: 0.8;
+}
+
 /* EACH POST ITEM */
 
 .post {

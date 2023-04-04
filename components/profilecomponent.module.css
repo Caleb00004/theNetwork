@@ -19,8 +19,15 @@
 }
 
 .texts {
+    display: flex;
+    flex-direction: column;
     padding-left: 0.8em;
     padding-top: 0.5em;
+}
+
+.texts > hr {
+    width: 100%;
+    margin-top: 0em;
 }
 
 .texts > h3 {
@@ -31,6 +38,7 @@
 .texts > p {
     font-size: 0.9em;
     font-weight: lighter;
+    margin-top: 0.4em;
 }
 
 .texts > p > span {

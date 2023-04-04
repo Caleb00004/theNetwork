@@ -1,9 +1,15 @@
 import { useRef, useState } from "react"
 import styles from '../styles/signup.module.css'
-import { useGetSignUpMutation } from "../features/api/apiSlice"
+import { useGetSignUpMutation} from "../features/api/apiSlice"
 import { useRouter } from "next/router"
+import {toast} from "react-toastify"
+import Loading from "./loading"
+
 
 export default function FormComponent() {
+
+    const [displayLoading, setDisplayLoading] = useState(false)
+    const [path, setPath] = useState('') // image path
 
     const [email, setEmail] = useState('')
     const [createPassword, setCreatePassword] = useState('')
@@ -14,7 +20,7 @@ export default function FormComponent() {
     const [bio, setBio] = useState('')
     const [dateOfBirth, setDateOfBirth] = useState('')
     const [Imgvalue, setImgValue] = useState('')
-    const eMessageRef = useRef(null)
+    const eMessageRef = useRef()
     const [errorDetails, setErrorDetails] = useState({
         display: false,
         message: ''
@@ -32,6 +38,7 @@ export default function FormComponent() {
 
     function handleSignIn(e) {
         e.preventDefault()
+        setDisplayLoading(true)
 
         const DataToSave = {
             name: name2,
@@ -39,10 +46,8 @@ export default function FormComponent() {
             bio,
             number,
             email,
-            // age: dateOfBirth,
-            // age: 21,
+            photo: path,
             dateOfBirth,
-            photo: Imgvalue,
             password: createPassword
         }
 
@@ -59,17 +64,22 @@ export default function FormComponent() {
                     progress: undefined,
                     theme: "dark",
                 });
-                router.push('/profile')
+                return (
+                    setDisplayLoading(false),
+                    router.push('/profile')
+                )
             })
             .catch(rejected => {
                 console.log(rejected)
+                setDisplayLoading(false)
+                setSignupRequestStatus('idle')
+
                 if (rejected.status == 'FETCH_ERROR') {
-                    setErrorDetails({display: true, message: `${rejected.error} Please reload page`})
+                    return setErrorDetails({display: true, message: `${rejected.error} Please reload page`})
                 } else {
-                    setErrorDetails({display: true, message: `${rejected.data.message} `})
+                    return setErrorDetails({display: true, message: `${rejected.data.message} `}) // rejected.data.data.err.message
                 }
 
-                setSignupRequestStatus('idle')
             })
             
         }
@@ -79,17 +89,25 @@ export default function FormComponent() {
 
     function previewImage(e) {
         const selectedFile = e.target.files[0]
-        console.log(URL.createObjectURL(selectedFile))
+        const reader = new FileReader();
+        reader.readAsDataURL(selectedFile);
+
+        // setPath(URL.createObjectURL(selectedFile))
+        reader.onload = () => {
+            setPath(reader.result)
+            // console.log(reader.result)
+        };
+
         setImgValue(URL.createObjectURL(selectedFile))
     }
 
     const firstGroup = 
         <>  
-            <label>Name  </label>
-            <input required className='' type={"text"} value={name2} onChange={(e) => setName2(e.target.value)} placeholder='Enter your name'/>
+            <label>Name <span>Min length: 5</span></label>
+            <input minLength={5} maxLength={30} required className='' type={"text"} value={name2} onChange={(e) => setName2(e.target.value)} placeholder='Enter your name'/>
 
-            <label>Please Enter your UserName: </label>
-            <input required type={"text"} value={username} onChange={(e) => setUserName(e.target.value)} placeholder='kalix8812'/>
+            <label>UserName: <span>Min length: 5</span></label>
+            <input minLength={5} maxLength={15} required type={"text"} value={username} onChange={(e) => setUserName(e.target.value)} placeholder='kalix8812'/>
 
             <label>Phone Number : </label>
             <input required className={styles.number} type={"number"} value={number} onChange={(e) => setNumber(e.target.value)} placeholder='+(234)-1111-111'/>
@@ -103,20 +121,20 @@ export default function FormComponent() {
             <label>Email </label>
             <input required className={styles.email} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='name@gmail.com'/>
 
-            <label>Enter Your Password</label>
-            <input required type={"password"} value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} placeholder='*********'></input>
+            <label>Enter Your Password <span>Min length: 8</span></label>
+            <input required minLength={8} maxLength={20} type={"password"} value={createPassword} onChange={(e) => setCreatePassword(e.target.value)} placeholder='*********'></input>
 
             <label>Enter a Brief Bio </label> 
-            <textarea required className={styles.textarea} value={bio} onChange={(e) => setBio(e.target.value)} type='text' placeholder="Hello I'm john doe, I like listening to movies and watching music"/>
+            <textarea minLength={10} maxLength={120} required className={styles.textarea} value={bio} onChange={(e) => setBio(e.target.value)} type='text' placeholder="Hello I'm john doe, I like listening to movies and watching music"/>
 
             <label>Profile Picture (optional) </label>
-            <input type={'file'} name={'file'} accept={'image.png, image.jpeg'} onChange={(e) => previewImage(e)}/>
+            <input type={'file'} name={'file'} accept={'.png, .jpeg, .jpg'} onChange={(e) => previewImage(e)}/>
 
             <img id="preview-image" className={styles.previewImage} src={Imgvalue} alt="Preview Image"/>
         </>
 
     // check if 'seconfGroup' can be displayed
-    const canNext = [name2, username, number, dateOfBirth].every(Boolean)
+    const canNext = [name2.length > 5, username.length > 5, number, dateOfBirth].every(Boolean)
 
     // Navigate Back and Forth btw the 2 form groups
     const Navigation = () => (
@@ -127,17 +145,24 @@ export default function FormComponent() {
                     :
                 <div className={styles.btnContainer}>
                     <button className={styles.prevBtn} onClick={() => setStep(prevstate => prevstate - 1)}>Back</button>
-                    <button className={styles.submitBtn} onClick={handleShowParagraph} type='submit'>Submit</button>
+                    <button className={styles.submitBtn} type='submit'>Submit</button>
                 </div>
             }
         </>
     )
     return (
-        <form onSubmit={handleSignIn}>
-            {step == 0 ? firstGroup : secondGroup}
-            <Navigation />
-            {errorDetails.display && <p ref={eMessageRef} style={{color: 'red'}}>{errorDetails.message}</p>}
-        </form>
+        <>
+            <div style={{height: '3em', width: '3em', position: 'fixed', top:'5em' , right: '0', marginRight: '2em'}}>
+                {displayLoading && <Loading style={{scale: '0.6'}}/>}
+            </div>
+
+            <form onSubmit={handleSignIn}>
+                {step == 0 ? firstGroup : secondGroup}
+                <Navigation />
+                {errorDetails.display && <p ref={eMessageRef} style={{color: 'red'}}>{errorDetails.message}</p>}
+            </form>
+        </>
+
     )
     
 }

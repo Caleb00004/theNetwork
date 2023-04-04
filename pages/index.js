@@ -40,12 +40,13 @@ export default function Home() {
        transform: 'translate(-50%, -50%)'
     }
  }
-
+//  console.log(currentUser)
   function handleNewPost() {
     const newPost = {
       authorName: currentUser.name,
       authorUserName: currentUser.username,
-      body: postInput
+      body: postInput,
+      photo: currentUser.photo
     }
 
     makePost(newPost).unwrap()
@@ -66,6 +67,7 @@ export default function Home() {
       .catch(rejected => console.log(rejected))
   }
 
+  const canPost = postInput.length > 3
   // Needed to remove one error in the modal component.
   Modal.setAppElement('#__next')
 
@@ -81,7 +83,7 @@ export default function Home() {
 
           <div className={styles.postForm}>
             <input type={'text' } value={postInput} onChange={(e) => setPostInput(e.target.value)}/>
-            {objectEmpty ? <button onClick={() => setIsOpen(true)}>Post</button> : <button onClick={() => handleNewPost()}>Post</button> }
+            {objectEmpty ? <button disabled={!canPost} onClick={() => setIsOpen(true)}>Post</button> : <button disabled={!canPost} onClick={() => handleNewPost()}>Post</button> }
           </div>
 
         </div>

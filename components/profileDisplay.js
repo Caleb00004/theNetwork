@@ -1,6 +1,7 @@
 import styles from './profilecomponent.module.css'
 import { globalState } from '../features/api/apiSlice';
 import Image from 'next/image'
+import Loading from './loading';
 
 
 export default function ProfileDisplay({isLoggedIn, status}) {
@@ -16,10 +17,12 @@ export default function ProfileDisplay({isLoggedIn, status}) {
             <div className="profileComponent">
                 <div className={styles.ProfileDisplay}>
                     <div className={styles.imgContainer}>
-                        <p>Loading...</p>
+                        {/* <p>Loading...</p> */}
+                        <Loading style={{scale: '0.6'}}/>
                     </div>
                     <div className={styles.texts}>
-                        <p>Loading...</p>
+                        <Loading style={{scale: '0.6'}}/>
+                        {/* <p>Loading...</p> */}
                     </div>
 
 
@@ -62,7 +65,7 @@ export default function ProfileDisplay({isLoggedIn, status}) {
                 <div className="profileComponent">
                     <div className={styles.ProfileDisplay}>
                         <div className={styles.imgContainer}>
-                            <Image src='/avatar.png' width={100} height={50}  alt='profile img'/>
+                            <Image src={currentUser.photo ? currentUser.photo : '/avatar.png'} width={100} height={50}  alt='profile img'/>
                         </div>
                         <div className={styles.texts}>
                             <h3>{currentUser.name}</h3>
@@ -70,7 +73,7 @@ export default function ProfileDisplay({isLoggedIn, status}) {
                             </p>
                             <hr />
                             <p>Number of Post: <span>{currentUser.posts ? currentUser.posts.length : 0}</span></p>
-                            <p>Impressions on your post: <span>23</span> </p>
+                            <p>Impressions on your post: <span>{currentUser.posts ? currentUser.posts.length : 0}</span> </p>
                             <hr />
                             <p>Checkout my other projects <a href='#'>Here</a> </p>
                         </div>

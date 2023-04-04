@@ -6,6 +6,7 @@ import PostExcerpt from '../features/posts/postExcerpt';
 import LikedPostSection from '../components/profile_components/LikedPostSection';
 import PostSection from '../components/profile_components/PostSection';
 import { useState } from 'react';
+import Loading from '../components/loading';
 
 export default function Profile({isLoggedIn, status}) {
 
@@ -15,7 +16,7 @@ export default function Profile({isLoggedIn, status}) {
 
     if (status === 'pending') {
         return (
-            <h1>Loading Data...</h1>
+            <Loading />
         )
     } else if (status == 'fulfilled') {
 
@@ -33,31 +34,32 @@ export default function Profile({isLoggedIn, status}) {
             )
         } else {
 
-
+            console.log(currentUser.likedPost)
             const normalPost = currentUser.posts ? currentUser.posts.map(item => (
-                <PostSection body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName} />
+                <PostSection body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName} authorImage={item.authorPhoto} />
                 // <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName}/>
-            )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>
+            )) : <p style={{color: 'white', textAlign: 'center'}}>You Currently Have No Posts</p>
 
             const likedPost = currentUser.likedPost ? currentUser.likedPost.map(item => (
-                <LikedPostSection body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name} />
+                <LikedPostSection body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name} authorImage={item.authorPhoto} />
                 // <PostExcerpt body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name}/>
-            )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>
+            )) : <p style={{color: 'white', textAlign: 'center'}}>You Currently Have No Posts</p>
             
             // const likedPost = <h1>YES</h1>
+            console.log(currentUser.photo)
             return (
                 <div className={styles.profilePage}>
                     {/* <h3>This the Profile Page ?</h3> */}
                     <div className={styles.coverImgContainer}>
-                        <Image src='/avatar.png' alt='profile picture' width={100} height={90}/>
+                        <Image src={currentUser.photo ? currentUser.photo : '/avatar.png'} alt='profile picture' width={100} height={90}/>
                     </div>
         
                     <h2>{currentUser.name}</h2>
                     <p className={styles.username}>@{currentUser.username}</p>
         
                     <p>{currentUser.bio}</p>
-                    <p>Joined today</p>
-                    <p className='ppo'>Link:</p>
+                    <p>Joined</p>
+                    {/* <p className='ppo'>Link:</p> */}
         
                     <div className={styles.postContainer}>
                         <div className={styles.span}>

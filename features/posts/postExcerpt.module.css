@@ -15,15 +15,21 @@
 }
   
 .imgContainer {
+
+}
+
+.imgContainer > img {
   background-color: gray;
-  height: 2.4em;
-  width: 2.4em;
+  height: 2.9em;
+  overflow: hidden;
+  width: 2.9em;
   border-radius: 50%;
   border: 2px solid #06c706;
 }
 
-  .postDetails {
+.postDetails {
     /* background-color: red; */
+    padding-left: 0.5em;
 }
   
   .singlePostDetails {
@@ -68,6 +74,10 @@
     display: grid;
     grid-template-columns: 14% auto;
   } 
+  .postDetails {
+    /* background-color: red; */
+    margin-left: 0.1em;
+  }
   .postDetails > a > p {
     margin-top: 0;
     /* max-width: 32em; */
@@ -82,9 +92,14 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 350px) {
   .singlePostDetails {
     /* background-color: red; */
     padding-left: 2em;
+  }
+
+  .postDetails {
+    padding-right: 0.5em;
+    margin-left: 1em;
   }
 }

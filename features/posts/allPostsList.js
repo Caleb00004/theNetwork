@@ -1,14 +1,17 @@
 import PostExcerpt from './postExcerpt'
 import { globalState } from '../api/apiSlice'
+import Loading from '../../components/loading'
 export default function AllPost({data, status, error, isLiked, setIsLiked}) {
-    console.log('ALL POST LISTS')
     const {currentUser} = globalState
     // console.log(data)
     if (status == 'pending') {
         return (
-                <h1>Data Loading...</h1>
+                <div style={{marginLeft: 'auto', marginRight: 'auto', marginTop: '1em'}}>
+                    <Loading />
+                </div>
             )
     } else if(status == 'fulfilled') {
+        // console.log(data)
         return (
             data.map((postItem) => (
                 <div key={postItem._id}>
@@ -17,7 +20,9 @@ export default function AllPost({data, status, error, isLiked, setIsLiked}) {
                         username={postItem.authorUserName}
                         name={postItem.authorName}
                         postId={postItem._id}
-                        userLiked={currentUser.likedPost}/>
+                        userLiked={currentUser.likedPost}
+                        authorImage={postItem.authorPhoto}
+                        />
                 </div>
             ))
         )
@@ -25,8 +30,9 @@ export default function AllPost({data, status, error, isLiked, setIsLiked}) {
         console.log(error)
         return (
             <>
-                <h1>{error.error}</h1>
-                <h3>Please Reload The Page</h3>
+                {/* <h2 style={{color: 'red'}}>{error.error}</h2> */}
+                <h2 style={{color: 'red', textAlign: 'center'}}>Failed to fetch</h2>
+                <p style={{textAlign: 'center'}}>Please Reload The Page</p>
             </>
         )
     }

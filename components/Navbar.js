@@ -4,6 +4,8 @@ import styles from '../styles/Navbar.module.css'
 import { useGetLogOutMutation } from '../features/api/apiSlice';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import { globalState } from '../features/api/apiSlice';
+import Image from 'next/image';
 
 export default function Navbar({isLoggedIn, status}) {
 
@@ -12,6 +14,7 @@ export default function Navbar({isLoggedIn, status}) {
     const [open, setOpen] = useState(false)
 
     let loggedIn;
+    let image = ''
 
     function handleLogOut() {
         logout().unwrap()
@@ -37,7 +40,9 @@ export default function Navbar({isLoggedIn, status}) {
     if (status === 'pending') {
         loggedIn = false
     } else if (status === 'fulfilled') {
-        loggedIn = isLoggedIn.userId        
+        loggedIn = isLoggedIn.userId     
+        // console.log(globalState.currentUser)
+        loggedIn && (image = globalState.currentUser.photo)
     } else {
         loggedIn = false
     }
@@ -56,7 +61,7 @@ export default function Navbar({isLoggedIn, status}) {
                 <p onClick={() => (router.replace('/profile'), handlePhoneNav() ) } >Profile</p>
                 <p onClick={() => (router.replace('/signup'), handlePhoneNav() ) } >Sign up</p>
                 {loggedIn ? <p style={{color: 'red'}} onClick={() => (handleLogOut(), handlePhoneNav()) } >Log Out</p> : <p onClick={() => (router.replace('/login'), handlePhoneNav() )} > Log In </p>}
-                <p>Image</p>
+                <Image style={{borderRadius: '50%', border: '2px solid #06c706'}} src={image == '' ? '/avatar.png' : image}  alt='profile picture' width={'40'} height={'40'}/>
             </ul>
         </div>
     )
