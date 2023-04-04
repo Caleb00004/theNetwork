@@ -13,7 +13,8 @@ export const loggedIn = false
 export const apiSlice = createApi({
     reducerPath: 'api',
     tagTypes: ['post', 'getPostData'],
-    baseQuery: fetchBaseQuery({baseUrl: `http://localhost:3500/`}),
+    // baseQuery: fetchBaseQuery({baseUrl: `http://localhost:3500/`}),
+    baseQuery: fetchBaseQuery({baseUrl: `https://the-network-nqyj.onrender.com/`}),
     endpoints: builder => ({
         getPosts: builder.query({
             query: () => ({
