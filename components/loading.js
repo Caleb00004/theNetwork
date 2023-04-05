@@ -6,7 +6,7 @@ export default function Loading(customStyle = {}) {
 
     return (
         <div style={{marginLeft: 'auto', marginRight: 'auto'}}>
-            <div style={isObjectEmpty ? {} : customStyle.style}  class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <div style={isObjectEmpty ? {} : customStyle.style}  className="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
             {isObjectEmpty && <p style={{textAlign: 'center'}}>Loading..</p>    }
         </div>
     )

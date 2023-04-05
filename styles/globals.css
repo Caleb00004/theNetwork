@@ -177,6 +177,10 @@ input:-webkit-autofill:active{
 
 @media screen and (max-width: 780px) {
 
+  /* .searchComponent {
+    display: none;
+    /* background-color: red; *
+  } */
   .profileComponent {
     display: none;
   }

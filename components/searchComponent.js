@@ -6,7 +6,7 @@ import Loading from './loading'
 
 export default function SearchComponent({data, status}) {
     // const {data, status} = useGetAllUsersQuery()
-    const [input, setInput] = useState()
+    const [input, setInput] = useState('')
     const [filteredList, setFilteredList] = useState([])
     const router = useRouter()
 
@@ -25,7 +25,8 @@ export default function SearchComponent({data, status}) {
     }  
     console.log('SEARCH COMPONENTTT')
 
-    if (status == 'fulfilled' && data.length !== 0) {
+    console.log(status)
+    if (status == 'fulfilled') {
         return (
             <div className="searchComponent">
                 <div className={styles.searchComponent}>
@@ -33,18 +34,19 @@ export default function SearchComponent({data, status}) {
                     <input type={"text"} value={input} onChange={(e) => handleFilter(e.target.value)} placeholder='Search for a User...'/> 
                     <div className={styles.searchUserList}>
                         <p>@user1234</p>
-                        {filteredList.map((item, i) => <p key={i} style={{cursor: 'pointer'}} onClick={() => (setInput(''), router.push(`/userProfile/?username=${item}`))}>@{item}</p>)}
+                        {data.length !== 0 && filteredList.map((item, i) => <p key={i} style={{cursor: 'pointer'}} onClick={() => (setInput(''), router.push(`/userProfile/?username=${item}`))}>@{item}</p>)}
                     </div>
                 </div>
     
             </div>
         )
     }
-    
-    return (
-        <div style={{display: 'flex'}} className='searchComponent'>
-            {/* <h3>Loading...</h3> */}
-            <Loading style={{scale: 1.0}}/>
-        </div>
-    )
+    else {
+        return (
+            <div className='searchComponent'>
+                {/* <h3>Loading...</h3> */}
+                <Loading style={{scale: 1.0, display: 'flex'}}/>
+            </div>
+        )
+    }
 }

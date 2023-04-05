@@ -9,7 +9,7 @@ export default function ProfileDisplay({isLoggedIn, status}) {
     let loggedIn;
     // console.log(isLoggedIn)
     // console.log(status)
-
+    console.log(status)
     if (status == 'pending') {
         loggedIn = false
 
