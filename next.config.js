@@ -6,6 +6,13 @@ const nextConfig = {
 
 module.exports = nextConfig
 
+
+module.exports = {
+  eslint: {
+    dirs: ['components']
+  }
+}
+
 module.exports = {
   images: {
     remotePatterns: [
@@ -17,10 +24,4 @@ module.exports = {
       },
     ],
   },
-}
-
-module.exports = {
-  eslint: {
-    dirs: ['components']
-  }
 }

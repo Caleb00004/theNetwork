@@ -8,7 +8,7 @@ import { globalState } from '../features/api/apiSlice';
 import Image from 'next/image';
 
 export default function Navbar({isLoggedIn, status}) {
-
+    console.log(isLoggedIn)
     const router = useRouter()
     const [logout] = useGetLogOutMutation()
     const [open, setOpen] = useState(false)
