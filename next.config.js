@@ -18,3 +18,9 @@ module.exports = {
     ],
   },
 }
+
+module.exports = {
+  eslint: {
+    dirs: ['components']
+  }
+}

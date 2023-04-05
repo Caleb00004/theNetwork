@@ -4,6 +4,7 @@ import { useGetSignUpMutation} from "../features/api/apiSlice"
 import { useRouter } from "next/router"
 import {toast} from "react-toastify"
 import Loading from "./loading"
+import Image from "next/image"
 
 
 export default function FormComponent() {
@@ -130,7 +131,8 @@ export default function FormComponent() {
             <label>Profile Picture (optional) </label>
             <input type={'file'} name={'file'} accept={'.png, .jpeg, .jpg'} onChange={(e) => previewImage(e)}/>
 
-            <img id="preview-image" className={styles.previewImage} src={Imgvalue} alt="Preview Image"/>
+            <Image id="preview-image" className={styles.previewImage} src={Imgvalue} alt="preview Image" width={0} height={0}/>
+            {/* <img id="preview-image" className={styles.previewImage} src={Imgvalue} alt="Preview Image"/> */}
         </>
 
     // check if 'seconfGroup' can be displayed
