@@ -1,19 +1,16 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
+// const nextConfig = {
+//   reactStrictMode: true,
+// }
 
 
-module.exports = nextConfig
-
+// module.exports = nextConfig
 
 module.exports = {
+  reactStrictMode: true,
   eslint: {
     dirs: ['components']
-  }
-}
-
-module.exports = {
+  },
   images: {
     remotePatterns: [
       {
@@ -25,3 +22,9 @@ module.exports = {
     ],
   },
 }
+
+// module.exports = {
+//   eslint: {
+//     dirs: ['components']
+//   }
+// }
