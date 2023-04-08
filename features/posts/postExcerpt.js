@@ -18,8 +18,6 @@ export default function PostExcerpt({body, authorImage, postId, username, userLi
 
     const [objectEmpty] = useCheckUserObj()
 
-    // console.log(userLiked)
-    // console.log(postId) 
     useEffect(() => {
         if (!objectEmpty) {
             userLiked &&
