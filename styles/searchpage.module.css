@@ -1,7 +1,6 @@
-.searchComponent {
+.searchPage {
     display: flex;
     flex-direction: column;
-    position: fixed;
     width: 100%;
     justify-content: center;
     align-items: center;
@@ -9,7 +8,7 @@
     padding-right: 1.5em;
 }
 
-.searchComponent > input {
+.searchPage > input {
     margin-top: 2em;
     width: 100%;
     padding: 1em 1.5em 1em 1em;
@@ -19,7 +18,7 @@
     color: white;
 }
 
-.searchComponent > input::placeholder {
+.searchPage > input::placeholder {
     color: rgb(156, 153, 153)
 }
 

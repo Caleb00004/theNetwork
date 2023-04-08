@@ -26,9 +26,9 @@ export default function SearchPage({userData, userDataStatus}) {
 
     if (userDataStatus == 'fulfilled' && userData.length !== 0) {
         return (
-            <div>
+            <div >
                 <div className="searchpage">
-                    <div className={styles.searchComponent}>
+                    <div className={styles.searchPage}>
                         {/* This is the search component */}
                         <input type={"text"} value={input} onChange={(e) => handleFilter(e.target.value)} placeholder='Search for a User...'/> 
                         <div className={styles.searchUserList}>

@@ -19,7 +19,7 @@
 }
 
 .imgContainer > img {
-  background-color: gray;
+  background-color: rgb(31, 29, 29);
   height: 2.9em;
   overflow: hidden;
   width: 2.9em;

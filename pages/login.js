@@ -1,13 +1,14 @@
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
-import { useGetLogInMutation } from "../features/api/apiSlice"
+import { useGetLogInMutation, globalState } from "../features/api/apiSlice"
 import styles from '../styles/loginPage.module.css'
 import {toast} from "react-toastify"
 import 'react-toastify/dist/ReactToastify.css'
 import Loading from "../components/loading"
+import useCheckUserObj from "../custom hooks-functions/checkUserObject"
 
-export default function LogIn() {
+export default function LogIn({showSuccessToast}) {
 
     const [displayLoading, setDisplayLoading] = useState(false)
     const [password, setPassword] = useState('')
@@ -19,6 +20,8 @@ export default function LogIn() {
         message: ''
     })
 
+    const [objectEmpty] = useCheckUserObj(globalState.currentUser)
+    
     const router = useRouter()
 
     function handleLogIn(e) {
@@ -70,23 +73,32 @@ export default function LogIn() {
 
     // console.log(canLogIn)
 
+    if (objectEmpty) {
+        return (
+            <div className={styles.loginPage}>
+                 <div style={{height: '3em', width: '3em', position: 'absolute', top:'0' , right: '0', marginRight: '3em'}}>
+                    {displayLoading && <Loading style={{scale: '0.6'}}/>}
+                </div>
+                <h1>Login</h1>
+                {/* <div className='w-fit h-fit'> */}
+                
+                <form onSubmit={handleLogIn}>
+                    <input required className={styles.email} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='name@gmail.com'/>
+                    <input required className={styles.password} type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='*********'></input>
+                    <button disabled={!canLogIn} className={styles.submit} style={canLogIn ? {opacity: 1} : {opacity: 0.3}}>Log In</button>
+                    {errorDetails.display && <p style={{color: 'red'}}>{errorDetails.message}</p>}
+                </form>
+                <span><input type={"checkbox"} />Remember me</span>
+    
+                <p>Don &apos t have an account? <Link href='/signup'>Sign Up</Link></p>
+            </div>
+        )
+    }
+    
     return (
         <div className={styles.loginPage}>
-             <div style={{height: '3em', width: '3em', position: 'absolute', top:'0' , right: '0', marginRight: '3em'}}>
-                {displayLoading && <Loading style={{scale: '0.6'}}/>}
-            </div>
-            <h1>Login</h1>
-            {/* <div className='w-fit h-fit'> */}
-            
-            <form onSubmit={handleLogIn}>
-                <input required className={styles.email} type={"email"} value={email} onChange={(e) => setEmail(e.target.value)} placeholder='name@gmail.com'/>
-                <input required className={styles.password} type={"password"} value={password} onChange={(e) => setPassword(e.target.value)} placeholder='*********'></input>
-                <button disabled={!canLogIn} className={styles.submit} style={canLogIn ? {opacity: 1} : {opacity: 0.3}}>Log In</button>
-                {errorDetails.display && <p style={{color: 'red'}}>{errorDetails.message}</p>}
-            </form>
-            <span><input type={"checkbox"} />Remember me</span>
-
-            <p>Don &apos t have an account? <Link href='/signup'>Sign Up</Link></p>
+            <h2>Already loggedIn In. Navigate To your <Link style={{color: '#1bca1b'}} href='/profile'>Profile</Link></h2>
         </div>
-    )
+    )   
+
 }

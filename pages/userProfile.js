@@ -4,6 +4,7 @@ import { useGetUserAccountMutation } from "../features/api/apiSlice"
 import styles from '../styles/profilePage.module.css'
 import Image from "next/image"
 import PostExcerpt from "../features/posts/postExcerpt"
+import Loading from "../components/loading"
 
 export default function UserProfile() {
     console.log('Re-Rendered')
@@ -31,6 +32,7 @@ export default function UserProfile() {
                 setStatus('error'),
                 console.log(err)
             ))
+    // },[])
     },[router.query])
 
 
@@ -40,7 +42,8 @@ export default function UserProfile() {
              <div className={styles.profilePage}>
                     {/* <h3>This the Profile Page ?</h3> */}
                     <div className={styles.coverImgContainer}>
-                        <Image src='/avatar.png' alt='profile picture' width={100} height={90}/>
+                        <Image src={data.photo ? data.photo : '/user.png'} alt='profile picture' width={100} height={90}/>
+
                     </div>
         
                     <h2>{data.name}</h2>
@@ -55,25 +58,21 @@ export default function UserProfile() {
                             <p style={{marginRight: 'auto', borderBottom: '3px solid rgb(9, 242, 9)'}}>POSTS</p>
                         </div>
                         {data.posts ? data.posts.map(item => (
-                            <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={data.likedPost} name={item.authorName}/>                        
+                            <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={data.likedPost} name={item.authorName} authorImage={item.authorPhoto} />
                         )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>}
 
                         {/* {
                             display == 'post' ? normalPost : likedPost
                         } */}
-                        {/* {likedPost}
-                        {normalPost} */}
                     </div>
                 </div>    
         </>
 
     return (
         <div>
-            {/* <h1>Here is the profile</h1> */}
-
-            {status == 'loading' && <p>Loading Data</p>}
+            {status == 'loading' && <div style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}><Loading /></div>}
             {status == 'fulfilled' && display_profile}
-            {status == 'error' && <p>An Error Occured please reload page</p>}
+            {status == 'error' && <h3 style={{color: 'white', textAlign:'center', marginTop: '3em'}}>User Dosen't Exist</h3>}
         </div>
 
     )

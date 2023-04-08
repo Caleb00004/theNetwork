@@ -10,7 +10,7 @@ import { useState } from 'react'
 import { toast } from 'react-toastify'
 import useCheckUserObj from '../custom hooks-functions/checkUserObject'
 
-export default function Home() {
+export default function Home({showSuccessToast}) {
   console.log('INDEX/HOME PAGE')
   const {data: postData, status: postStatus, error: postError} = useGetPostsQuery()
   const [isOpen, setIsOpen] = useState(false) // To Open and Close the Modal
@@ -51,16 +51,7 @@ export default function Home() {
 
     makePost(newPost).unwrap()
       .then(fulfilled => {
-        toast.success('post successful', {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "dark",
-        });
+        showSuccessToast('post successful')
         console.log('Post Made')
         setPostInput('')
       })

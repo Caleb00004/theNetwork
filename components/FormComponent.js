@@ -7,7 +7,7 @@ import Loading from "./loading"
 import Image from "next/image"
 
 
-export default function FormComponent() {
+export default function FormComponent({showSuccessToast}) {
 
     const [displayLoading, setDisplayLoading] = useState(false)
     const [path, setPath] = useState('') // image path
@@ -55,16 +55,7 @@ export default function FormComponent() {
         if (signupRequestStatus === 'idle') {
             signUp({...DataToSave}).unwrap()
             .then(fulfilled => {
-                toast.success('signUp succesful', {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
+                showSuccessToast('signUp succesful')
                 return (
                     setDisplayLoading(false),
                     router.push('/profile')

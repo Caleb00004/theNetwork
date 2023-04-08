@@ -39,7 +39,7 @@ export default function ProfileDisplay({isLoggedIn, status}) {
                 <div className="profileComponent">
                     <div className={styles.ProfileDisplay}>
                         <div className={styles.imgContainer}>
-                            <Image src='/avatar.png' width={100} height={50}  alt='profile img'/>
+                            <Image src='/user.png' width={100} height={50}  alt='profile img'/>
                         </div>
                         <div className={styles.texts}>
                             <h3>[Not Logged In]</h3>

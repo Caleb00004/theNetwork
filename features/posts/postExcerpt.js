@@ -78,7 +78,7 @@ export default function PostExcerpt({body, authorImage, postId, username, userLi
     // console.log(authorImage)
     return (
         <div className={singlePost ? styles.single_post : styles.post}>
-            <div style={singlePost ? singleImageContainer : {}} className={styles.imgContainer}><Image src={authorImage ? authorImage : '/avatar.png'} alt='profile picture' width={'50'} height={'50'} /> </div>
+            <div style={singlePost ? singleImageContainer : {}} className={styles.imgContainer}><Image src={authorImage ? authorImage : '/user.png'} alt='profile picture' width={'50'} height={'50'} /> </div>
 
                 <Modal isOpen={isOpen} onRequestClose={() => setIsOpen(false)} style={customStyles}>
                     <h3>You need to be logged in to Perform this action</h3>

@@ -13,8 +13,8 @@ export const loggedIn = false
 export const apiSlice = createApi({
     reducerPath: 'api',
     tagTypes: ['post', 'getPostData'],
-    // baseQuery: fetchBaseQuery({baseUrl: `http://localhost:3500/`}),
-    baseQuery: fetchBaseQuery({baseUrl: `https://the-network-nqyj.onrender.com/`}),
+    baseQuery: fetchBaseQuery({baseUrl: `http://localhost:3500/`}),
+    // baseQuery: fetchBaseQuery({baseUrl: `https://the-network-nqyj.onrender.com/`}),
     endpoints: builder => ({
         getPosts: builder.query({
             query: () => ({
@@ -60,11 +60,11 @@ export const apiSlice = createApi({
                 url: '/find-account',
                 method: 'POST', 
                 credentials: 'include',
-                body: {username: username}
+                body: {username}
             }),
             transformResponse: res => {
                 // console.log('GETTING ACCOUNT')
-                // console.log(res)
+                console.log(res)
                 // globalState.currentUser = res.userData
                 return res
                 // console.log(res)

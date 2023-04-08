@@ -16,24 +16,30 @@ export default function Navbar({isLoggedIn, status}) {
     let loggedIn;
     let image = ''
 
+    const showErrorToast = (message) => (
+        toast.error(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+        })
+    )
+
     function handleLogOut() {
         logout().unwrap()
             .then(fulfilled => {
-                toast.error('logged Out', {
-                    position: "top-right",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                    theme: "dark",
-                });
-                router.push('/')
+                console.log('log out successful'),
+                showErrorToast('logged Out')
+                return router.push('/')
             })
-            .catch(rejected => {
+            .catch(rejected => (
+                console.log('Rejected logout'),
                 console.log(rejected)
-            })
+            ))
     }
 
 
@@ -61,7 +67,7 @@ export default function Navbar({isLoggedIn, status}) {
                 <p onClick={() => (router.replace('/profile'), handlePhoneNav() ) } >Profile</p>
                 <p onClick={() => (router.replace('/signup'), handlePhoneNav() ) } >Sign up</p>
                 {loggedIn ? <p style={{color: 'red'}} onClick={() => (handleLogOut(), handlePhoneNav()) } >Log Out</p> : <p onClick={() => (router.replace('/login'), handlePhoneNav() )} > Log In </p>}
-                <Image style={{borderRadius: '50%', border: '2px solid #06c706'}} src={image == '' ? '/avatar.png' : image}  alt='profile picture' width={'40'} height={'40'}/>
+                <Image style={{borderRadius: '50%', border: '2px solid #06c706'}} src={image == '' ? '/user.png' : image}  alt='profile picture' width={'40'} height={'40'}/>
             </ul>
         </div>
     )

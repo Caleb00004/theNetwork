@@ -37,21 +37,17 @@ export default function Profile({isLoggedIn, status}) {
             console.log(currentUser.likedPost)
             const normalPost = currentUser.posts ? currentUser.posts.map(item => (
                 <PostSection key={item._id} body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName} authorImage={item.authorPhoto} />
-                // <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName}/>
             )) : <p style={{color: 'white', textAlign: 'center'}}>You Currently Have No Posts</p>
 
             const likedPost = currentUser.likedPost ? currentUser.likedPost.map(item => (
                 <LikedPostSection key={item.postId} body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name} authorImage={item.authorPhoto} />
-                // <PostExcerpt body={item.body} postId={item.postId} userLiked={currentUser.likedPost} username={item.username} name={item.name}/>
             )) : <p style={{color: 'white', textAlign: 'center'}}>You Currently Have No Posts</p>
             
-            // const likedPost = <h1>YES</h1>
-            console.log(currentUser.photo)
+            // console.log(currentUser.photo)
             return (
                 <div className={styles.profilePage}>
-                    {/* <h3>This the Profile Page ?</h3> */}
                     <div className={styles.coverImgContainer}>
-                        <Image src={currentUser.photo ? currentUser.photo : '/avatar.png'} alt='profile picture' width={100} height={90}/>
+                        <Image src={currentUser.photo ? currentUser.photo : '/user.png'} alt='profile picture' width={100} height={90}/>
                     </div>
         
                     <h2>{currentUser.name}</h2>
@@ -66,15 +62,10 @@ export default function Profile({isLoggedIn, status}) {
                             <p onClick={() => setDisplay('post')} style={display == 'post' ? {borderBottom: '3px solid rgb(9, 242, 9)'} : {}}>POSTS</p>
                             <p  onClick={() => setDisplay('likedPost')} style={display == 'likedPost' ? {borderBottom: '3px solid rgb(9, 242, 9)'} : {}} >Liked Posts</p>
                         </div>
-                        {/* {currentUser.posts ? currentUser.posts.map(item => (
-                            <PostExcerpt body={item.body} postId={item._id} username={item.authorUserName} userLiked={currentUser.likedPost} name={item.authorName}/>                        
-                        )) : <p style={{color: 'white'}}>You Currently Have no Posts</p>} */}
 
                         {
                             display == 'post' ? normalPost : likedPost
                         }
-                        {/* {likedPost}
-                        {normalPost} */}
                     </div>
                 </div>
             )

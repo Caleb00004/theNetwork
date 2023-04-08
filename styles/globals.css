@@ -78,6 +78,10 @@ input:-webkit-autofill:active{
     -webkit-text-stroke-color: white;
 }
 
+.searchpage {
+  padding-right: unset;
+  margin-right: unset;
+}
 
 .modal {
   background-color: red;
