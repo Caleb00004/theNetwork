@@ -6,7 +6,7 @@ import PostExcerpt from '../features/posts/postExcerpt';
 import LikedPostSection from '../components/profile_components/LikedPostSection';
 import PostSection from '../components/profile_components/PostSection';
 import { useState } from 'react';
-import Loading from '../components/loading';
+import Loading from '../components/loadingSpinner';
 
 export default function Profile({isLoggedIn, status}) {
 
