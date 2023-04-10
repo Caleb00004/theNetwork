@@ -5,7 +5,7 @@ import { useGetPostsQuery } from "../../features/api/apiSlice"
 import { useAddCommentMutation } from "../../features/api/apiSlice"
 import useCheckUserObj from "../../custom hooks-functions/checkUserObject"
 import PostExcerpt from "../../features/posts/postExcerpt"
-import Loading from "../../components/loading"
+import Loading from "../../components/loadingSpinner"
 import styles from '../../styles/singlepost.module.css'
 
 export default function SinglePost () {

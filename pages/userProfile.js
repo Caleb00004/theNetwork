@@ -4,7 +4,7 @@ import { useGetUserAccountMutation } from "../features/api/apiSlice"
 import styles from '../styles/profilePage.module.css'
 import Image from "next/image"
 import PostExcerpt from "../features/posts/postExcerpt"
-import Loading from "../components/loading"
+import Loading from "../components/loadingSpinner"
 
 export default function UserProfile() {
     console.log('Re-Rendered')

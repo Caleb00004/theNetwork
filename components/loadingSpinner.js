@@ -1,7 +1,8 @@
+// Style is in the globals.css file
+
 export default function Loading(customStyle = {}) {
     console.log(customStyle)
 
-    // const myStyle = customStyle.customStyle
     const isObjectEmpty = Object.keys(customStyle).length === 0
 
     return (

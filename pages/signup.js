@@ -1,8 +1,6 @@
-import { useState } from 'react'
 import FormComponent from '../components/FormComponent'
 import styles from '../styles/signup.module.css'
 import Link from 'next/link'
-import { globalState } from '../features/api/apiSlice'
 import useCheckUserObj from '../custom hooks-functions/checkUserObject'
 
 export default function SignUp() {

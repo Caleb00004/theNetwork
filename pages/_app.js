@@ -2,12 +2,15 @@ import '../styles/globals.css'
 import { ApiProvider } from '@reduxjs/toolkit/dist/query/react'
 import { apiSlice } from '../features/api/apiSlice'
 import Layout from '../components/Layout'
+import { Toaster } from 'react-hot-toast'
+
 import { ToastContainer } from "react-toastify"
 
 function MyApp({ Component, ...pageProps }) {
   console.log('APP COMPONENT')
   return (
     <ApiProvider api={apiSlice}>
+        <Toaster />
         <ToastContainer />
         <Layout>
           <Component test={'mark'} {...pageProps} />

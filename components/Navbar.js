@@ -1,14 +1,12 @@
 import { useRouter } from 'next/router';
-import { loggedIn } from '../features/api/apiSlice'
 import styles from '../styles/Navbar.module.css'
 import { useGetLogOutMutation } from '../features/api/apiSlice';
 import { useState } from 'react';
-import { toast } from 'react-toastify';
+import toast from "react-hot-toast";
 import { globalState } from '../features/api/apiSlice';
 import Image from 'next/image';
 
 export default function Navbar({isLoggedIn, status}) {
-    console.log(isLoggedIn)
     const router = useRouter()
     const [logout] = useGetLogOutMutation()
     const [open, setOpen] = useState(false)
@@ -16,28 +14,15 @@ export default function Navbar({isLoggedIn, status}) {
     let loggedIn;
     let image = ''
 
-    const showErrorToast = (message) => (
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        })
-    )
-
     function handleLogOut() {
         logout().unwrap()
             .then(fulfilled => {
                 console.log('log out successful'),
-                showErrorToast('logged Out')
+                toast.success('logged Out')
                 return router.push('/')
             })
             .catch(rejected => (
-                console.log('Rejected logout'),
+                toast.error('An error occured'),
                 console.log(rejected)
             ))
     }
@@ -47,7 +32,6 @@ export default function Navbar({isLoggedIn, status}) {
         loggedIn = false
     } else if (status === 'fulfilled') {
         loggedIn = isLoggedIn.userId     
-        // console.log(globalState.currentUser)
         loggedIn && (image = globalState.currentUser.photo)
     } else {
         loggedIn = false

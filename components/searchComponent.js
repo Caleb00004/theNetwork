@@ -2,28 +2,27 @@ import { useState } from 'react'
 import styles from './searchcomponent.module.css'
 // import { useGetAllUsersQuery } from '../features/api/apiSlice'
 import { useRouter } from 'next/router'
-import Loading from './loading'
+import Loading from './loadingSpinner'
 
 export default function SearchComponent({data, status}) {
     // const {data, status} = useGetAllUsersQuery()
     const [input, setInput] = useState('')
     const [filteredList, setFilteredList] = useState([])
     const router = useRouter()
-
+    
     function handleFilter(event) {
         setInput(event)
 
         let filtered = data.filter(dataItem => (
-            dataItem.includes(event.toLowerCase())
+            dataItem.toLowerCase().includes(event.toLowerCase())
         ))
-        
+        console.log(filtered)
         if (event) {
             setFilteredList(filtered)
         } else { // if input box is empty, set itemList back to normal.
             setFilteredList([])
         }
     }  
-    console.log('SEARCH COMPONENTTT')
 
     console.log(status)
     if (status == 'fulfilled') {

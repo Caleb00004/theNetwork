@@ -2,12 +2,12 @@ import { useRef, useState } from "react"
 import styles from '../styles/signup.module.css'
 import { useGetSignUpMutation} from "../features/api/apiSlice"
 import { useRouter } from "next/router"
-import {toast} from "react-toastify"
-import Loading from "./loading"
+import toast from "react-hot-toast";
+import Loading from "./loadingSpinner"
 import Image from "next/image"
 
 
-export default function FormComponent({showSuccessToast}) {
+export default function FormComponent() {
 
     const [displayLoading, setDisplayLoading] = useState(false)
     const [path, setPath] = useState('') // image path
@@ -55,7 +55,7 @@ export default function FormComponent({showSuccessToast}) {
         if (signupRequestStatus === 'idle') {
             signUp({...DataToSave}).unwrap()
             .then(fulfilled => {
-                showSuccessToast('signUp succesful')
+                toast.success('signUp successful')
                 return (
                     setDisplayLoading(false),
                     router.push('/profile')
@@ -84,10 +84,8 @@ export default function FormComponent({showSuccessToast}) {
         const reader = new FileReader();
         reader.readAsDataURL(selectedFile);
 
-        // setPath(URL.createObjectURL(selectedFile))
         reader.onload = () => {
             setPath(reader.result)
-            // console.log(reader.result)
         };
 
         setImgValue(URL.createObjectURL(selectedFile))
@@ -126,7 +124,7 @@ export default function FormComponent({showSuccessToast}) {
             {/* <img id="preview-image" className={styles.previewImage} src={Imgvalue} alt="Preview Image"/> */}
         </>
 
-    // check if 'seconfGroup' can be displayed
+    // check if 'secondGroup' can be displayed
     const canNext = [name2.length > 5, username.length > 5, number, dateOfBirth].every(Boolean)
 
     // Navigate Back and Forth btw the 2 form groups

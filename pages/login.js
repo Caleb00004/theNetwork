@@ -3,12 +3,13 @@ import { useRouter } from "next/router"
 import { useState } from "react"
 import { useGetLogInMutation, globalState } from "../features/api/apiSlice"
 import styles from '../styles/loginPage.module.css'
-import {toast} from "react-toastify"
+// import {toast} from "react-toastify"
+import toast from "react-hot-toast";
 import 'react-toastify/dist/ReactToastify.css'
-import Loading from "../components/loading"
+import Loading from "../components/loadingSpinner"
 import useCheckUserObj from "../custom hooks-functions/checkUserObject"
 
-export default function LogIn({showSuccessToast}) {
+export default function LogIn() {
 
     const [displayLoading, setDisplayLoading] = useState(false)
     const [password, setPassword] = useState('')
@@ -38,16 +39,7 @@ export default function LogIn({showSuccessToast}) {
                 getLogIn({email: email, password: password}).unwrap()
                     .then(fulfilled => {
                         setDisplayLoading(false)
-                        toast.success('login succesful', {
-                            position: "top-right",
-                            autoClose: 3000,
-                            hideProgressBar: false,
-                            closeOnClick: true,
-                            pauseOnHover: true,
-                            draggable: true,
-                            progress: undefined,
-                            theme: "dark",
-                        });
+                        toast.success('login successful')
                         return router.push('/')
                     })
                     .catch(rejected => {

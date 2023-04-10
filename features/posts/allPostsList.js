@@ -1,6 +1,6 @@
 import PostExcerpt from './postExcerpt'
 import { globalState } from '../api/apiSlice'
-import Loading from '../../components/loading'
+import Loading from '../../components/loadingSpinner'
 export default function AllPost({data, status, error, isLiked, setIsLiked}) {
     const {currentUser} = globalState
     // console.log(data)

@@ -13,7 +13,7 @@ export default function SearchPage({userData, userDataStatus}) {
         setInput(event)
 
         let filtered = userData.filter(dataItem => (
-            dataItem.includes(event.toLowerCase())
+            dataItem.toLowerCase().includes(event.toLowerCase())
         ))
         
         if (event) {

@@ -13,36 +13,6 @@ export default function Layout({children}) {
     const {data: userData, status: userDataStatus} = useGetAllUsersQuery()
     const {data: isLoggedIn, status, error} = useGetLoggedInStatusQuery()
 
-    if (typeof window !== 'undefined') {
-        console.log(window.innerWidth)
-    }
-
-    const showSuccessToast = (message) => (
-        toast.success(message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-          })
-    )
-    
-    const showErrorToast = (message) => (
-        toast.error(message, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "dark",
-        })
-    )
-
     // This is to pass some props to all chlidren components/pages
     const renderChildren = () => {
         return React.Children.map(children, (child) => {
@@ -51,33 +21,14 @@ export default function Layout({children}) {
                 status,
                 error,
                 userData,
-                userDataStatus,
-                showSuccessToast,
-                showErrorToast
+                userDataStatus
             })
         })
     }
 
     return (
         <div>
-            {/* <div>
-                <ToastContainer
-                    position="top-right"
-                    autoClose={5000}
-                    hideProgressBar={false}
-                    newestOnTop={false}
-                    closeOnClick
-                    rtl={false}
-                    pauseOnFocusLoss
-                    draggable
-                    pauseOnHover
-                    theme="light"
-                />
-                    {/* Same as *
-                <ToastContainer />                
-            </div> */}
-
-            <Navbar isLoggedIn={isLoggedIn} status={status} error={error} showErrorToast={showErrorToast}/>
+            <Navbar isLoggedIn={isLoggedIn} status={status} error={error} />
                 <div className={Styles.layout}>
                     <ProfileDisplay isLoggedIn={isLoggedIn} status={status} error={error}/>
                     {renderChildren()}

@@ -1,7 +1,7 @@
 import styles from './profilecomponent.module.css'
 import { globalState } from '../features/api/apiSlice';
 import Image from 'next/image'
-import Loading from './loading';
+import Loading from './loadingSpinner';
 
 
 export default function ProfileDisplay({isLoggedIn, status}) {
