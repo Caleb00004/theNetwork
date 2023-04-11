@@ -1,3 +1,4 @@
+import Head from 'next/head'
 import FormComponent from '../components/FormComponent'
 import styles from '../styles/signup.module.css'
 import Link from 'next/link'
@@ -10,6 +11,14 @@ export default function SignUp() {
     if (isObjectEmpty) {
         return (
             <div className='signup-page'>
+                <Head>
+                    <title>signup-theNetwork</title>
+                    <meta
+                    name="description"
+                    content="sign up for theNetwork"
+                    />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </Head>
                 <div className={styles.signupPage}>
                     <h1 style={{textAlign: 'center'}}>Get Started</h1>     
                     <p style={{width: '80%', textAlign: 'center'}}>Sign up to join the <span style={{color: '#1bca1b'}}>The</span>Network and interact with friends and strangers from all over the world.</p>

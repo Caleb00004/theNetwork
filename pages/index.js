@@ -1,5 +1,4 @@
 import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { useGetPostsQuery, useAddPostMutation } from '../features/api/apiSlice'
 import { globalState } from '../features/api/apiSlice'
@@ -88,6 +87,14 @@ export default function Home() {
 
   return (
     <div className='home-page'>
+        <Head>
+            <title>The network</title>
+            <meta
+              name="description"
+              content="theNetwork easily interact with people on the network"
+            />
+            <meta name="viewport" content="width=device-width, initial-scale=1" />
+        </Head>
         {displayLoading && <LoadingBar /> }
         <div className={styles.postFormContainer}>
 

@@ -1,3 +1,4 @@
+import Head from "next/head"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useState } from "react"
@@ -68,6 +69,14 @@ export default function LogIn() {
     if (objectEmpty) {
         return (
             <div className={styles.loginPage}>
+                <Head>
+                    <title>login theNetwork</title>
+                    <meta
+                    name="description"
+                    content="Login to theNetwork"
+                    />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
+                </Head>
                  <div style={{height: '3em', width: '3em', position: 'absolute', top:'0' , right: '0', marginRight: '3em'}}>
                     {displayLoading && <Loading style={{scale: '0.6'}}/>}
                 </div>
