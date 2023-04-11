@@ -1,5 +1,5 @@
-## The Network
-# Live At: https://the-network-bice.vercel.app/
+# The Network
+### Live At: https://the-network-bice.vercel.app/
 
 The Network a social media web application that can be used to network with people from all over the world. It allows logged In users to be able to make post's and comment on Posts. The chat feature and notification system is still under developement.
 
