@@ -1,7 +1,7 @@
 # The Network
 ### Live At: https://the-network-bice.vercel.app/
 
-The Network a social media web application that can be used to network with people from all over the world. It allows logged In users to be able to make post's and comment on Posts. The chat feature and notification system is still under developement.
+The Network is a social media web application that can be used to network with people from all over the world. It allows registered users to be able to make post's and interact with Posts from other users. 
 
 ## Inspiration
 This Project was built to test my MERN Stack skills
@@ -22,7 +22,7 @@ I am proud that i was able to use the MERN stack to build this project
 I learned alot about Next JS and building Rest API with Express and Mongo DB. I learnt about hydaration in Next JS and how to setup cookies and sessions for a production environment. I also learned how to perfectly integrate different technologies/frameworks into one project.
 
 ## What's next for theNetwork
-I'm working on integrating a chat feature and also setting up a notification system to alert users whenever their post gets an interaction.
+I'm working on integrating a chat feature and also setting up a notification system to alert users whenever their post is interacted with.
 I also plan on making use of web sockets to integrate bi-directional communication instead of using a Rest API
 
 ## Built With
