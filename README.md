@@ -1,34 +1,37 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## The Network
+# Live At: https://the-network-bice.vercel.app/
 
-## Getting Started
+The Network a social media web application that can be used to network with people from all over the world. It allows logged In users to be able to make post's and comment on Posts. The chat feature and notification system is still under developement.
 
-First, run the development server:
+## Inspiration
+This Project was built to test my MERN Stack skills
 
-```bash
-npm run dev
-# or
-yarn dev
-```
+## How it was built
+For the Frontend I made use of NextJS, Javascript and CSS. In the backend, I made use of Node Js and Express JS for the Rest API and mongoDB for the Database. The Database was deployed on MongoDB Atlas, The RestAPI was deployed on render and I made use of vercel to deploy the Frontend. 
+Image Files are stored on cloudinary database.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Challenges I ran Into
+I had some issues setting up sessions and cookies for a production environment. Even though it was working perfectly fine on my local machine, after deploying it had some bugs. I was able to fix this by first setting up a Mongo Store to save session Data. and I configured `cors` to allow access from the FrontEnd hosted on vercel. Then I setup cookie `samesite` and `secure` properties.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Another major Issue i had was loading the image files from cloudinary. I had to configure the 'next.config.js' file to allow access from `res.cloudinary.com` to fix this.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+## Accomplishment that I'm proud Of
+I am proud that i was able to use the MERN stack to build this project 
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+## What I learned
+I learned alot about Next JS and building Rest API with Express and Mongo DB. I learnt about hydaration in Next JS and how to setup cookies and sessions for a production environment. I also learned how to perfectly integrate different technologies/frameworks into one project.
 
-## Learn More
+## What's next for theNetwork
+I'm working on integrating an end to end chat feature and also setup a notification system to alert users whenever there post gets an interaction.
+I also plan on making use of web sockets to integrate bi-directional communication instead of using a Rest API
 
-To learn more about Next.js, take a look at the following resources:
+# Built With
+- NextJS
+- Javascript
+- CSS
+- ExpressJS
+- NodeJS
+- MongoDB
+- Cloudinary
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Link to Backend code: https://github.com/Caleb00004/theNetwork-server-side-
