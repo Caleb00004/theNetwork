@@ -125,7 +125,7 @@ export default function FormComponent() {
         </>
 
     // check if 'secondGroup' can be displayed
-    const canNext = [name2.length > 5, username.length > 5, number, dateOfBirth].every(Boolean)
+    const canNext = [name2.length >= 5, username.length >= 5, number, dateOfBirth].every(Boolean)
 
     // Navigate Back and Forth btw the 2 form groups
     const Navigation = () => (
